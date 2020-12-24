@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main">
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:background="#b3e5fc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bntSell"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/view3"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="160dp"
+        android:background="@drawable/rounded_button_with_blue_color"
+        android:text="Bán Hàng"/>
+
+    <Button
+        android:id="@+id/bntViewStore"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_alignEnd="@+id/view3"
+        android:layout_below="@+id/view3"
+        android:layout_marginEnd="160dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/rounded_button_with_blue_color"
+        android:text="Xem Kho" />
+
+    <Button
+        android:id="@+id/bntViewHistoryOfInvoice"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/bntSell"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="160dp"
+        android:background="@drawable/rounded_button_with_blue_color"
+        android:text="Xem Hóa Đơn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bntViewStore" />
+
+    <Button
+        android:id="@+id/bntViewTransaction"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/bntViewHistoryOfInvoice"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_button_with_blue_color"
+        android:text="Lịch Sử Giao Dịch" />
+
+    <Button
+        android:id="@+id/bntBuy"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/bntViewStore"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="160dp"
+        android:background="@drawable/rounded_button_with_blue_color"
+        android:text="Nhập Hàng"/>
+
+    <Button
+        android:id="@+id/bntLogout"
+        android:layout_centerHorizontal="true"
+        android:layout_width="136dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rounded_button_with_gray_color"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:text="Đăng xuất" />
+
+
+</RelativeLayout>

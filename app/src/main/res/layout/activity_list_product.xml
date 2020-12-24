@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListProduct">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="#b3e5fc"/>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView"
+        android:background="@drawable/rounded_button"
+        android:queryHint="Nhập từ cần tìm .."
+        android:layout_marginTop="20dp">
+
+    </SearchView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Danh sách sản phẩm"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <GridView
+        android:id="@+id/gvProduct"
+        android:layout_width="wrap_content"
+        android:numColumns="2"
+        android:layout_below="@+id/view"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/bntBackBuyPage"
+        android:layout_marginBottom="40dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bntBackBuyPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trở lại"
+
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"/>
+
+</RelativeLayout>

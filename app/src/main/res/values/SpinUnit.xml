@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="unit_arrays">
+        <item>Cành</item>
+        <item>Bó</item>
+        <item>Kg</item>
+        <item>Vỉ</item>
+    </string-array>
+</resources>

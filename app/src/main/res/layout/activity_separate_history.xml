@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SeparateHistory">
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginBottom="28dp"
+        android:background="#b3e5fc" />
+
+    <ImageButton
+        android:id="@+id/ibBackMainPage"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:background="#b3e5fc"
+        android:src="?attr/actionModeCloseDrawable" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lịch sử hóa đơn"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/bntDirectToBuyHistory"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="150dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/rounded_button_with_blue_color"
+        android:text="Lịch sử mua hàng" />
+    <Button
+        android:id="@+id/bntDirectToSellHistory"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="160dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/rounded_button_with_blue_color"
+        android:text="Lịch sử bán hàng" />
+
+    <Button
+        android:id="@+id/bntBackMainPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_button_with_gray_color"
+        android:text="Trở lại"/>
+</RelativeLayout>

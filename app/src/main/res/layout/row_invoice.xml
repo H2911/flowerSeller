@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+        <TableRow>
+            <TextView
+                android:text="29/11/2000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/tvDateInvoice"
+                android:textSize="16dp"/>
+            <TextView
+                android:text="12:00:00"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:id="@+id/tvTimeInvoice"
+                android:textSize="16dp"/>
+            <TextView
+                android:id="@+id/tvNameInInvoice"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Trần Khắc Hùng"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="16dp"/>
+
+            <Button
+                android:id="@+id/bntViewInvoice"
+                android:layout_width="40dp"
+                android:layout_height="28dp"
+                android:gravity="center"
+                android:text="Xem"
+                android:textSize="6sp" />
+        </TableRow>
+    </TableLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/tvItemNameList"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Hoa hồng nhuộm đủ màu"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+        android:id="@+id/ibRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40dp"
+        android:background="@android:color/white"
+        android:src="@android:drawable/btn_dialog"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvQuantityList"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tvItemNameList"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text= "50000 cành"/>
+
+    <TextView
+        android:id="@+id/tvMultiplyIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x"
+        android:textSize="16sp"
+        android:layout_toEndOf="@+id/tvQuantityList"
+        android:layout_below="@+id/tvItemNameList"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/tvPriceList"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvItemNameList"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_toEndOf="@+id/tvMultiplyIcon"
+            android:gravity="center"
+            android:text="50000"
+            android:textSize="16sp" />
+
+        <TextView
+        android:id="@+id/tvSubtractIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="="
+        android:layout_toEndOf="@+id/tvPriceList"
+        android:layout_below="@+id/tvItemNameList"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tvSumOfItemList"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/tvItemNameList"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text= "25000000000 đ"
+        android:layout_toEndOf="@+id/tvSubtractIcon" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

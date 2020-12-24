@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewTransaction">
+
+    <Button
+        android:id="@+id/bntSearchTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/bntPickEndDateInTransaction"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="60dp"
+        android:background="#b3e5fc"
+        android:text="tìm kiếm" />
+
+    <Button
+        android:id="@+id/bntAddFunds"
+        android:layout_width="68dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="12dp"
+        android:background="#b3e5fc"
+        android:text="Thêm vốn"
+        android:textSize="12sp"/>
+
+    <TableLayout
+        android:id="@+id/tbTransaction"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginVertical="52dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_alignTop="@+id/bntSearchTransaction"
+        android:layout_centerHorizontal="true"
+        android:numColumns="1" >
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_weight="3"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giờ"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="Nguồn tiền"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:layout_weight="0.5"/>
+        </TableRow>
+    </TableLayout>
+
+    <GridView
+        android:layout_alignTop="@+id/tbTransaction"
+        android:id="@+id/gvTransaction"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="160dp"
+        android:text="Từ ngày:"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvStartDateInTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="158dp"
+        android:text="29/11/2000
+"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvEndDateInTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="212dp"
+        android:text="29/11/2000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_alignTop="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="52dp"
+        android:text="Đến ngày:"
+        android:textSize="16sp" />
+
+    <Button
+        android:layout_alignTop="@+id/view6"
+        android:id="@+id/bntPickStartDateInTransaction"
+        android:layout_width="68dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="154dp"
+        android:layout_marginEnd="12dp"
+        android:background="#b3e5fc"
+        android:textSize="12sp"
+        android:text="Chọn" />
+
+    <Button
+        android:layout_alignTop="@+id/bntPickStartDateInTransaction"
+        android:id="@+id/bntPickEndDateInTransaction"
+        android:layout_width="68dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="12dp"
+        android:background="#b3e5fc"
+        android:textSize="12sp"
+        android:text="Chọn" />
+
+    <Button
+        android:id="@+id/bntBackMainPageFromViewTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/gvTransaction"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_button_with_gray_color"
+        android:text="Trở lại" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="28dp"
+        android:background="#b3e5fc" />
+
+    <ImageButton
+        android:id="@+id/ibBackMainPageFromViewTransaction"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#b3e5fc"
+        android:src="?attr/actionModeCloseDrawable" />
+
+    <TextView
+        android:id="@+id/tvTittleViewTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Lịch sử giao dịch"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="Vốn hiện có:"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="108dp"/>
+
+    <TextView
+        android:id="@+id/tvFunds"
+        android:text="50000000000 đ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="106dp"
+        android:layout_marginStart="132dp"
+        android:textSize="18sp"/>
+
+</RelativeLayout>

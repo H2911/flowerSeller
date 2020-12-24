@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "620064210019",
+    "firebase_url": "https://kimlongflower.firebaseio.com",
+    "project_id": "kimlongflower",
+    "storage_bucket": "kimlongflower.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620064210019:android:face38ab427909e8728c56",
+        "android_client_info": {
+          "package_name": "com.example.kimlongflower"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620064210019-q2tske49pg992ls6b3ig3okh94aalgb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk2rTLKhjEp1yhcUtx6JSDGrCo2udgYHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620064210019-q2tske49pg992ls6b3ig3okh94aalgb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

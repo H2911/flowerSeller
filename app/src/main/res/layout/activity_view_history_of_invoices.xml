@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TableLayout
+        android:id="@+id/tbInvoices"
+        android:layout_below="@+id/bntSearchHistory"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginVertical="56dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_centerHorizontal="true"
+        android:numColumns="1" >
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_weight="3"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giờ"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="Người bán"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:layout_weight="0.5"/>
+        </TableRow>
+    </TableLayout>
+
+    <GridView
+        android:id="@+id/gvInvoices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tbInvoices"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/bntBackSeparateHistoryPage"/>
+
+    <View
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/view4"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginBottom="28dp"
+        android:background="#b3e5fc" />
+
+    <ImageButton
+        android:id="@+id/ibBackSeparateHistoryPage"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:background="#b3e5fc"
+        android:src="?attr/actionModeCloseDrawable" />
+
+    <TextView
+        android:id="@+id/tvTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lịch sử bán hàng"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tvFrom"
+        android:layout_below="@+id/view4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="24dp"
+        android:text="Từ ngày:"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvStartDate"
+        android:text="29/11/2000"
+        android:layout_toRightOf="@+id/tvFrom"
+        android:layout_below="@+id/view4"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tvTo"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="56dp"
+        android:layout_below="@+id/tvStartDate"
+        android:text="29/11/2000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvTo"
+        android:layout_below="@+id/tvFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="20dp"
+        android:text="Đến ngày:"
+        android:textSize="16sp"/>
+
+    <Button
+        android:background="#b3e5fc"
+        android:id="@+id/bntPickStartDate"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_below="@+id/view4"
+        android:layout_marginTop="8dp"
+        android:text="Chọn"/>
+
+    <Button
+        android:background="#b3e5fc"
+        android:id="@+id/bntPickEndDate"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:layout_below="@+id/bntPickStartDate"
+        android:text="Chọn"/>
+
+    <Button
+        android:background="#b3e5fc"
+        android:id="@+id/bntSearchHistory"
+        android:text="tìm kiếm"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/bntPickEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="40dp"/>
+
+    <Button
+        android:id="@+id/bntBackSeparateHistoryPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_button_with_gray_color"
+        android:text="Trở lại"/>
+
+</RelativeLayout>
