@@ -5,12 +5,20 @@ import java.io.Serializable;
 public class ItemsModel implements Serializable {
     private String name;
     private String quantity;
+    private String unit;
     private int image;
 
-    public ItemsModel(String name,String quantity,int image){
+    public ItemsModel(String name,String quantity,String unit,int image){
         this.name = name;
         this.quantity = quantity;
         this.image = image;
+        this.unit = unit;
+    }
+
+    public String getUnit(){return unit;}
+
+    public void setUnit(String unit){
+        this.unit = unit;
     }
 
     public String getName() {
