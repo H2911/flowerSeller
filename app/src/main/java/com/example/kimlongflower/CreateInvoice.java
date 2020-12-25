@@ -176,10 +176,7 @@ public class CreateInvoice extends AppCompatActivity implements PrintingCallback
                             Toast.makeText(CreateInvoice.this,"Lưu dữ liệu thất bại",Toast.LENGTH_SHORT).show();
                         }
                     });
-
-
                 }
-
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

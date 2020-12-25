@@ -79,9 +79,9 @@ public class ListProduct extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(images.length>j&&images[j]!=0) {
-                        itemsModelList.add(new ItemsModel(names[j], snapshot.getValue().toString(), images[j]));
+                        itemsModelList.add(new ItemsModel(names[j], snapshot.getValue().toString().split(" ")[0].trim(),snapshot.getValue().toString().split(" ")[1].trim(), images[j]));
                     }else {
-                        itemsModelList.add(new ItemsModel(names[j],snapshot.getValue().toString(),R.drawable.logo));
+                        itemsModelList.add(new ItemsModel(names[j],snapshot.getValue().toString().split(" ")[0].trim(),snapshot.getValue().toString().split(" ")[1].trim(),R.drawable.logo));
                     }
                     customAdapter.notifyDataSetChanged();
                 }
@@ -152,7 +152,7 @@ public class ListProduct extends AppCompatActivity {
 
             imageView.setImageResource(itemsModelListFiltered.get(position).getImage());
             tvName.setText(itemsModelListFiltered.get(position).getName());
-            tvQuantity.setText(itemsModelListFiltered.get(position).getQuantity());
+            tvQuantity.setText(itemsModelListFiltered.get(position).getQuantity() +" "+ itemsModelListFiltered.get(position).getUnit());
 
             view.setOnClickListener(v -> {
                 if(!action.equals("view store")) {

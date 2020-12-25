@@ -19,7 +19,8 @@ import android.widget.Toast;
 public class AddItem extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ImageView imageView;
-    TextView textView;
+    TextView tvNameItem;
+    TextView tvUnit;
     ItemsModel itemsModel;
     String action;
 
@@ -29,28 +30,24 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
         setContentView(R.layout.activity_add_item);
 
         action  = (String) getIntent().getSerializableExtra("action");
-        Spinner spinner = findViewById(R.id.spinUnit);
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.unit_arrays, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
         imageView = findViewById(R.id.imItem);
-        textView = findViewById(R.id.tvItemName);
+        tvNameItem = findViewById(R.id.tvItemName);
+        tvUnit = findViewById(R.id.tvUnit);
 
         Intent intent = getIntent();
 
         if (intent.getExtras()!=null){
             itemsModel = (ItemsModel) getIntent().getSerializableExtra("item");
             imageView.setImageResource(itemsModel.getImage());
-            textView.setText(itemsModel.getName());
+
+            //get name, set name
+            tvNameItem.setText(itemsModel.getName());
+
+            //get unit, set unit
+            tvUnit.setText(itemsModel.getUnit());
         }
 
-        TextView tvItemName = findViewById(R.id.tvItemName);
         EditText edPrice = findViewById(R.id.edPrice);
         EditText edQuantity = findViewById(R.id.edQuantity);
 
@@ -76,7 +73,7 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
                     insufficientAlert.create().show();
                 }
                 else {
-                    Main.productsList.add(new Item(tvItemName.getText().toString(), edQuantity.getText().toString(),edPrice.getText().toString(), spinner.getSelectedItem().toString()));
+                    Main.productsList.add(new Item(tvNameItem.getText().toString(), edQuantity.getText().toString(),edPrice.getText().toString(), tvUnit.getText().toString()));
                     CreateInvoice.activityBuy.recreate();
                     ListProduct.activityProduct.finish();
                     finish();
