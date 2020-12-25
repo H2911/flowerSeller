@@ -16,18 +16,18 @@
         android:id="@+id/tvTimeInvoiceInPopUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:text="12:00:00"
-        android:layout_marginEnd="56dp"
+        android:layout_toLeftOf="@+id/tvCancelPopUp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="8dp"/>
     <TextView
         android:id="@+id/tvCancelPopUp"
         android:background="@drawable/rounded_button_with_gray_color"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:text="X"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  X  "
         android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
         android:clickable="true"
         android:layout_alignParentEnd="true"
         android:gravity="center"
@@ -51,7 +51,7 @@
     <GridView
         android:id="@+id/gvInvoicesInPopUp"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="600dp"
         android:layout_alignTop="@+id/tvNameInInvoiceInPopUp"
         android:layout_marginTop="56dp"/>
     <TextView

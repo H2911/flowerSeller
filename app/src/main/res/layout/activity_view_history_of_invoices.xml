@@ -10,7 +10,7 @@
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginVertical="56dp"
+        android:layout_marginVertical="36dp"
         android:layout_marginHorizontal="20dp"
         android:layout_centerHorizontal="true"
         android:numColumns="1" >
@@ -52,7 +52,7 @@
     <GridView
         android:id="@+id/gvInvoices"
         android:layout_width="wrap_content"
-        android:layout_height="213dp"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/bntBackSeparateHistoryPage"
         android:layout_below="@+id/tbInvoices"
         android:layout_marginLeft="8dp"
@@ -75,7 +75,7 @@
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:background="#b3e5fc"
         android:src="?attr/actionModeCloseDrawable" />
 
@@ -103,9 +103,8 @@
     <TextView
         android:id="@+id/tvStartDate"
         android:text="29/11/2000"
-        android:layout_toRightOf="@+id/tvFrom"
-        android:layout_below="@+id/view4"
-        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/tvFrom"
+        android:layout_alignBaseline="@+id/tvFrom"
         android:layout_marginStart="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,9 +115,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/tvTo"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="56dp"
-        android:layout_below="@+id/tvStartDate"
+        android:layout_alignBaseline="@+id/tvTo"
+        android:layout_alignStart="@+id/tvStartDate"
         android:text="29/11/2000"
         android:textSize="18sp" />
 
@@ -127,7 +125,7 @@
         android:layout_below="@+id/tvFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="20dp"
         android:text="Đến ngày:"
         android:textSize="16sp"/>
@@ -139,19 +137,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
-        android:layout_below="@+id/view4"
-        android:layout_marginTop="8dp"
+        android:layout_alignBaseline="@+id/tvFrom"
         android:text="Chọn"/>
 
     <Button
         android:background="#b3e5fc"
         android:id="@+id/bntPickEndDate"
         android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/tvTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
-        android:layout_below="@+id/bntPickStartDate"
         android:text="Chọn"/>
 
     <Button
