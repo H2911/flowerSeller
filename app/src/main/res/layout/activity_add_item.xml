@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/imItem"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="400dp"
         android:scaleType = "centerCrop"/>
 
     <ImageButton
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:src="@android:drawable/ic_delete" />
     <TextView
         android:id="@+id/tvStringItemName"
@@ -25,29 +25,28 @@
         android:layout_height="wrap_content"
         android:text="Tên sản phẩm:"
         android:layout_below="@+id/imItem"
-        android:layout_marginTop="28dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="16dp"/>
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="36dp"
+        android:textSize="18sp"/>
     <TextView
-        android:textAlignment="center"
         android:id="@+id/tvItemName"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/tvStringItemName"
+        android:layout_alignBaseline="@+id/tvStringItemName"
+        android:layout_toEndOf="@+id/tvStringItemName"
         android:layout_below="@+id/imItem"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="24dp"
-        android:textSize="20dp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:gravity="left"
         tools:ignore="RtlCompat" />
     <TextView
         android:id="@+id/tvStringPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_alignStart="@+id/tvStringQuantity"
+        android:textSize="18sp"
         android:layout_below="@+id/tvStringQuantity"
         android:text="Đơn giá:"
         />
@@ -55,68 +54,68 @@
 
     <EditText
         android:id="@+id/edQuantity"
-        android:layout_width="200dp"
-        android:layout_height="44dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tvItemName"
-        android:layout_marginLeft="62dp"
-        android:layout_marginTop="19dp"
-        android:layout_toRightOf="@+id/tvStringQuantity"
+        android:layout_alignStart="@+id/tvItemName"
+        android:layout_alignBaseline="@+id/tvStringQuantity"
+        android:layout_toEndOf="@+id/tvStringQuantity"
+        android:layout_marginStart="20sp"
         android:gravity="center"
         android:inputType="number"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvStringUnit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="16dp"
+        android:layout_alignStart="@+id/tvStringPrice"
+        android:layout_marginTop="60dp"
+        android:textSize="18sp"
         android:layout_below="@+id/tvStringPrice"
         android:text="Đơn vị: "/>
 
     <EditText
         android:id="@+id/edPrice"
         android:gravity="center"
-        android:layout_toRightOf="@+id/tvStringPrice"
+        android:layout_toEndOf="@+id/tvStringPrice"
         android:layout_below="@+id/edQuantity"
-        android:layout_width="200dp"
-        android:layout_height="44dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/edQuantity"
+        android:layout_alignBaseline="@+id/tvStringPrice"
         android:inputType="number"
-        android:textSize="20dp"/>
+        android:textSize="20sp"/>
     <TextView
         android:id="@+id/tvStringQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="25dp"
-        android:textSize="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_alignStart="@+id/tvStringItemName"
+        android:textSize="18sp"
         android:layout_below="@+id/tvItemName"
         android:text="Số lượng:"/>
 
-    <Spinner
-        android:id="@+id/spinUnit"
+    <TextView
+        android:id="@+id/tvUnit"
         android:layout_width="200dp"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/edPrice"
-        android:layout_marginLeft="76dp"
-        android:layout_marginTop="21dp"
-        android:layout_toRightOf="@+id/tvStringUnit"
+        android:layout_alignStart="@+id/edPrice"
+        android:layout_alignBaseline="@+id/tvStringUnit"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/tvStringUnit"
         android:gravity="center"
         android:textAlignment="center"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/bntSubmit"
-        android:layout_width="200dp"
-        android:layout_height="32dp"
-        android:layout_below="@+id/spinUnit"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="160dp"
         android:layout_marginLeft="162dp"
         android:layout_marginTop="80dp"

@@ -79,7 +79,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginRight="8dp"
+        android:layout_above="@id/bntBackMainPageFromViewTransaction"
+        android:layout_marginBottom="40dp"/>
 
     <TextView
         android:id="@+id/textView6"
@@ -145,7 +147,6 @@
         android:id="@+id/bntBackMainPageFromViewTransaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/gvTransaction"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
