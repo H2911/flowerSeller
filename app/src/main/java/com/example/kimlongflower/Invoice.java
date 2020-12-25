@@ -28,9 +28,6 @@ public class Invoice {
         this.listItem = listItem;
         this.action = action;
 
-        for (Item item : listItem) {
-            sum +=Integer.parseInt(item.getSumOfItem());
-        }
     }
 
     public Invoice(String name, String action, List<Item> listItem, String date,String time){
@@ -42,6 +39,9 @@ public class Invoice {
     }
 
     public int getSum() {
+        for (Item item : listItem) {
+            sum +=Integer.parseInt(item.getSumOfItem());
+        }
         return sum;
     }
 

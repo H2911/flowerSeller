@@ -255,7 +255,7 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
                 tvDateInvoiceInPopUp.setText(invoiceList.get(position).getDate());
                 tvTimeInvoiceInPopUp.setText(invoiceList.get(position).getTime());
                 tvNameInInvoiceInPopUp.setText(invoiceList.get(position).getName());
-                tvSumOfInvoiceInPopUp.setText("Tổng: "+String.valueOf(invoiceList.get(position).getSum()));
+                tvSumOfInvoiceInPopUp.setText("Tổng: "+ invoiceList.get(position).getSum()+ " đ");
 
                 //custom popup dialog
                 customAdapterPopUp = new CustomAdapterPopUp(invoiceList.get(position),dialogInvoice.getContext());
@@ -332,7 +332,7 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
             tvItemNameInPopUpInvoice.setText(itemList.get(position).getName());
             tvQuantityInPopUpInvoice.setText(itemList.get(position).getQuantity()+" "+itemList.get(position).getUnit());
             tvPriceInPopUpInvoice.setText(itemList.get(position).getPrice());
-            tvSumOfItemList.setText(itemList.get(position).getSumOfItem());
+            tvSumOfItemList.setText(itemList.get(position).getSumOfItem()+" đ");
 
             return view;
         }
