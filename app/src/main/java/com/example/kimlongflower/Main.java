@@ -22,36 +22,23 @@ public class Main extends AppCompatActivity {
 
         //Buy product
         Button bntBuy = findViewById(R.id.bntBuy);
-        bntBuy.setOnClickListener(v -> {
-            startActivity(new Intent(Main.this, CreateInvoice.class).putExtra("action","buy"));
-
-        });
+        bntBuy.setOnClickListener(v -> startActivity(new Intent(Main.this, CreateInvoice.class).putExtra("action","buy")));
 
         //Sell product
         Button bntSell = findViewById(R.id.bntSell);
-        bntSell.setOnClickListener(v -> {
-            startActivity(new Intent(Main.this, CreateInvoice.class).putExtra("action","sell"));
-        });
+        bntSell.setOnClickListener(v -> startActivity(new Intent(Main.this, CreateInvoice.class).putExtra("action","sell")));
 
         //View store
         Button bntViewStore = findViewById(R.id.bntViewStore);
-        bntViewStore.setOnClickListener(v -> {
-            startActivity(new Intent(Main.this, ListProduct.class).putExtra("action","view store"));
-
-        });
+        bntViewStore.setOnClickListener(v -> startActivity(new Intent(Main.this, ListProduct.class).putExtra("action","view store")));
 
         //View transaction
         Button bntViewSummary = findViewById(R.id.bntViewTransaction);
-        bntViewSummary.setOnClickListener(v -> {
-            startActivity( new Intent(Main.this, ViewTransaction.class));
-
-        });
+        bntViewSummary.setOnClickListener(v -> startActivity( new Intent(Main.this, ViewTransaction.class)));
 
         //View history of invoices
         Button bntViewHistory = findViewById(R.id.bntViewHistoryOfInvoice);
-        bntViewHistory.setOnClickListener(v -> {
-            startActivity(new Intent(Main.this, SeparateHistory.class));
-        });
+        bntViewHistory.setOnClickListener(v -> startActivity(new Intent(Main.this, ChooseTypeOfHistory.class)));
 
         //Logout
         Button bntLogout = findViewById(R.id.bntLogout);

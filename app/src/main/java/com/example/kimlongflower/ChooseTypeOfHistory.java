@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class SeparateHistory extends AppCompatActivity {
+public class ChooseTypeOfHistory extends AppCompatActivity {
 
     Button bntDirectToSellHistory;
     Button bntDirectToBuyHistory;
@@ -17,26 +17,18 @@ public class SeparateHistory extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_separate_history);
+        setContentView(R.layout.activity_choose_type_history);
 
         bntDirectToBuyHistory = findViewById(R.id.bntDirectToBuyHistory);
-        bntDirectToBuyHistory.setOnClickListener(v -> {
-            startActivity(new Intent(SeparateHistory.this,ViewHistoryOfInvoices.class).putExtra("action","buy"));
-        });
+        bntDirectToBuyHistory.setOnClickListener(v -> startActivity(new Intent(ChooseTypeOfHistory.this,ViewHistoryOfInvoices.class).putExtra("action","buy")));
 
         bntDirectToSellHistory = findViewById(R.id.bntDirectToSellHistory);
-        bntDirectToSellHistory.setOnClickListener(v -> {
-            startActivity(new Intent(SeparateHistory.this,ViewHistoryOfInvoices.class).putExtra("action","sell"));
-        });
+        bntDirectToSellHistory.setOnClickListener(v -> startActivity(new Intent(ChooseTypeOfHistory.this,ViewHistoryOfInvoices.class).putExtra("action","sell")));
 
         bntBackMainPage = findViewById(R.id.bntBackMainPage);
-        bntBackMainPage.setOnClickListener(v -> {
-            finish();
-        });
+        bntBackMainPage.setOnClickListener(v -> finish());
 
         ibBackMainPage = findViewById(R.id.ibBackMainPage);
-        ibBackMainPage.setOnClickListener(v -> {
-            finish();
-        });
+        ibBackMainPage.setOnClickListener(v -> finish());
     }
 }

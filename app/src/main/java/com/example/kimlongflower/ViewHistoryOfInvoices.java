@@ -60,6 +60,8 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_history_of_invoices);
 
+        dialogInvoice = new Dialog(this);
+
         Date currentDate = new Date();
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
         tvStartDate = findViewById(R.id.tvStartDate);
@@ -233,6 +235,8 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
             tvNameInInvoice.setText(invoiceList.get(position).getName());
             tvDateInvoice.setText(invoiceList.get(position).getDate());
             tvTimeInvoice.setText(invoiceList.get(position).getTime());
+
+            // View more details of a invoice
             bntViewInvoice.setOnClickListener(v -> {
                 TextView tvDateInvoiceInPopUp;
                 TextView tvTimeInvoiceInPopUp;
@@ -251,7 +255,7 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
                 tvDateInvoiceInPopUp.setText(invoiceList.get(position).getDate());
                 tvTimeInvoiceInPopUp.setText(invoiceList.get(position).getTime());
                 tvNameInInvoiceInPopUp.setText(invoiceList.get(position).getName());
-                tvSumOfInvoiceInPopUp.setText(String.valueOf(invoiceList.get(position).getSum()));
+                tvSumOfInvoiceInPopUp.setText("Tổng: "+String.valueOf(invoiceList.get(position).getSum()));
 
                 //custom popup dialog
                 customAdapterPopUp = new CustomAdapterPopUp(invoiceList.get(position),dialogInvoice.getContext());
