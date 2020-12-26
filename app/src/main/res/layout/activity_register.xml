@@ -14,7 +14,7 @@
         android:layout_marginLeft="179dp"
         android:layout_marginEnd="179dp"
         android:layout_marginRight="179dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="64dp"
         android:linksClickable="true"
         android:text="Đã có tài khoản?"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +94,6 @@
         android:layout_marginBottom="12dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:password="true"
         app:layout_constraintBottom_toTopOf="@+id/register2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -105,8 +104,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:text="Tên đăng nhập"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/registeredUserName"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -115,8 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:text="Số điện thoại"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/registeredPhoneNumber"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -125,17 +124,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:text="Mật khẩu"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/registeredPassword"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
+        android:layout_marginBottom="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:text="Nhập lại mật khẩu"
         app:layout_constraintBottom_toTopOf="@+id/repeatRegisteredPassword"
         app:layout_constraintStart_toStartOf="parent" />
