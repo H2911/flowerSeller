@@ -14,13 +14,15 @@
 
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="80dp"
         android:background="@drawable/rounded_button"
-        android:queryHint="Nhập từ cần tìm .."
-        android:layout_marginTop="20dp">
+        android:queryHint="Nhập từ cần tìm ...">
 
     </SearchView>
 
