@@ -46,6 +46,8 @@ public class Invoice {
     }
 
     public void printInvoice(){
+
+
         ArrayList<Printable> printable = new ArrayList<>();
 
         printable.add(new TextPrintable.Builder()

@@ -51,6 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text=""/>
+        android:text="Người bán: Trần Khắc Hùng"
+        android:layout_marginStart="4sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
