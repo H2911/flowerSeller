@@ -1,62 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="58mm"
+    android:layout_gravity="center"
+    android:layout_width="320dp"
     android:layout_height="match_parent"
-    android:layout_gravity="center">
+    android:background="#ffffff"
+    >
 
     <TextView
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Công ty TNHH Kim Long Flower"
-        android:textSize="20sp"
+        android:text="Công ty TNHH"
+        android:textSize="15sp"
         android:textStyle="bold"
-        android:gravity="center"/>
+        android:gravity="center" />" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Kim Long Flower"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:gravity="center" />
 
     <TextView
         android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="12b Nguyễn Du, Phường 9, Đà Lạt, Lâm Đồng"
-        android:textSize="16sp"
-        android:gravity="center"/>
+        android:text="12b Nguyễn Du, Phường 9"
+        android:textSize="9sp"
+        android:gravity="center"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đà Lạt, Lâm Đồng"
+        android:textSize="9sp"
+        android:gravity="center"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
+        android:textSize="9sp"
         android:text="SĐT: 0913789317"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
         android:text="SĐT: 0982789317"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"/>
+        android:textSize="9sp"
+        android:layout_marginTop="8dp"
+        tools:ignore="SmallSp" />
 
     <TextView
+        android:id="@+id/tvTypeOfInvoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="HÓA ĐƠN BÁN HÀNG"
         android:gravity="center"
         android:layout_marginTop="24dp"
-        android:textSize="20sp"/>
+        android:textSize="11sp"
+        android:textStyle="bold"
+        tools:ignore="SmallSp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tvAction"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Người bán: Trần Khắc Hùng"
-        android:layout_marginStart="4sp"/>
+        android:textSize="9sp"
+        android:text="Người mua:"
+        android:layout_marginStart="4sp"
+        android:layout_marginLeft="4sp"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="9sp"
+        android:text="Trần Khắc Hùng"
+        android:layout_marginStart="20sp"
+        android:layout_marginLeft="20sp"
+        tools:ignore="SmallSp" />
+
     <TableLayout
+        android:id="@+id/tlItems"
         android:layout_marginTop="12dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
-    </TableLayout>>
 
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/tvSumOfPreInvoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="right"
+        android:textSize="9sp"
+        android:text="Tổng: 10000000 đ"
+        android:textStyle="bold"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/tvDateTimePreInvoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:text="12/12/2020 13:20:20"
+        tools:ignore="SmallSp"
+        android:layout_marginBottom="20dp"/>
 </LinearLayout>
