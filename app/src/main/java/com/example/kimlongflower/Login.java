@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
         //Direct to registration page when click register button
         Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(v -> {
-            System.out.println(DefaultPrinter.Companion.getCHARCODE_PC1252());
+
             Intent intent = new Intent(Login.this,Register.class);//Initial registration page
             startActivity(intent);
             resetUserNameText();
@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void Login(String userName, String password){
-        firebaseAuth.signInWithEmailAndPassword(userName,password).addOnCompleteListener(task -> {
+        firebaseAuth.signInWithEmailAndPassword(userName.trim(),password.trim()).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 Intent intent = new Intent(Login.this, Main.class);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
