@@ -15,12 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:theme">
-        <activity android:name=".ChooseTypeOfHistory"></activity>
+        <activity android:name=".ChooseTypeOfHistory" />
         <activity android:name=".ViewHistoryOfInvoices" />
         <activity android:name=".CreateInvoice" />
         <activity android:name=".AddItem" />
         <activity android:name=".ListProduct" />
         <activity android:name=".ViewTransaction" />
+        <activity android:name=".BluetoothDeviceList"/>
         <activity
             android:name=".Main"
             android:theme="@style/AppTheme" />
