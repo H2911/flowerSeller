@@ -74,7 +74,7 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
                 }
                 else {
                     Main.productsList.add(new Item(tvNameItem.getText().toString(), edQuantity.getText().toString(),edPrice.getText().toString(), tvUnit.getText().toString()));
-                    CreateInvoice.activityBuy.recreate();
+                    CreateInvoice.customAdapter.notifyDataSetChanged();
                     ListProduct.activityProduct.finish();
                     finish();
                 }
