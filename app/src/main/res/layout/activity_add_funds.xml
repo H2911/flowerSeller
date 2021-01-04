@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp">
+
+    <Button
+        android:id="@+id/btnCancelAddFunds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Thêm vốn"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv"
+        android:layout_marginTop="40dp"
+        android:text="Người thực hiện:"/>
+
+    <EditText
+        android:id="@+id/edPerformer"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv"
+        android:layout_toEndOf="@+id/tv1"
+        android:layout_alignBaseline="@+id/tv1"
+        android:layout_marginStart="30dp"/>
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv1"
+        android:layout_marginTop="60dp"
+        android:text="Số vốn thêm: "/>
+
+    <EditText
+        android:id="@+id/edFundsAdd"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv"
+        android:layout_toEndOf="@+id/tv2"
+        android:layout_alignBaseline="@+id/tv2"
+        android:layout_alignStart="@+id/edPerformer"/>
+
+    <Button
+        android:id="@+id/btnConfirmAddFunds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận"
+        android:layout_below="@+id/edFundsAdd"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
