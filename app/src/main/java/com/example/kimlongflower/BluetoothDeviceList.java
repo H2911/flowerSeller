@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -32,8 +31,6 @@ public class BluetoothDeviceList extends Activity {
      * Member fields
      */
     private ListView lvPairedDevice = null;
-    //   private TextView tvPairedDevice = null, tvNewDevice = null;
-    private Button btDeviceScan = null;
     private BluetoothAdapter mBluetoothAdapter;
     private ArrayAdapter<String> DevicesArrayAdapter;
     //   private ArrayAdapter<String> mNewDevicesArrayAdapter;
@@ -47,8 +44,8 @@ public class BluetoothDeviceList extends Activity {
         setContentView(R.layout.dialog_bluetooth_list);
         SearchingBluetoothActivityAlive = true;
 
-        lvPairedDevice =  findViewById(R.id.lvPairedDevices);
-        btDeviceScan =  findViewById(R.id.btBluetoothScan);
+        lvPairedDevice = (ListView) findViewById(R.id.lvPairedDevices);
+        Button btDeviceScan = (Button) findViewById(R.id.btBluetoothScan);
         btDeviceScan.setOnClickListener(v -> {
             // TODO Auto-generated method stub
             v.setVisibility(View.GONE);
@@ -173,13 +170,9 @@ public class BluetoothDeviceList extends Activity {
     };
 
     private void discoveryDevice() {
-        // Indicate scanning in the title
         setProgressBarIndeterminateVisibility(true);
         setTitle(R.string.scaning);
-        // Turn on sub-title for new devices
-        //tvNewDevice.setVisibility(View.VISIBLE);
         DevicesArrayAdapter.add(getString(R.string.str_title_newdev));
-        // lvNewDevice.setVisibility(View.VISIBLE);
         // If we're already discovering, stop it
         if (mBluetoothAdapter.isDiscovering()) {
             mBluetoothAdapter.cancelDiscovery();

@@ -26,7 +26,7 @@ public class Invoice {
     private final String name;
     private List<Item> listItem;
     private final String action;
-    private int sum;
+    private int sum = 0;
 
     //Invoice with default date time
     public Invoice(String name, String action, List<Item> listItem){
@@ -38,7 +38,10 @@ public class Invoice {
         this.name = name;
         this.listItem = listItem;
         this.action = action;
-
+        for (Item item : listItem) {
+            sum +=Integer.parseInt(item.getSumOfItem());
+            System.out.println(sum);
+        }
     }
 
     //Invoice with exactly date time
@@ -48,12 +51,13 @@ public class Invoice {
         this.name = name;
         this.listItem = listItem;
         this.action = action;
+        for (Item item : listItem) {
+            sum +=Integer.parseInt(item.getSumOfItem());
+            System.out.println(sum);
+        }
     }
 
     public int getSum() {
-        for (Item item : listItem) {
-            sum +=Integer.parseInt(item.getSumOfItem());
-        }
         return sum;
     }
 
@@ -72,6 +76,8 @@ public class Invoice {
     public String getName() {
         return name;
     }
+
+    public String getAction(){return action;}
 
 }
 

@@ -258,7 +258,7 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
                 tvSumOfInvoiceInPopUp.setText("Tổng: "+ invoiceList.get(position).getSum()+ " đ");
 
                 //custom popup dialog
-                customAdapterPopUp = new CustomAdapterPopUp(invoiceList.get(position),dialogInvoice.getContext());
+                customAdapterPopUp = new CustomAdapterPopUp(invoiceList.get(position), dialogInvoice.getContext());
                 gvInvoicesInPopUp.setAdapter(customAdapterPopUp);
 
                 tvCancelPopUp = dialogInvoice.findViewById(R.id.tvCancelPopUp);

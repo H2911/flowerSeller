@@ -24,12 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
 
-/**
- * Created by Administrator
- *
- * @author 猿史森林
- *         Time 2017/8/2
- */
 public class DeviceConnFactoryManager {
 
     public static final byte FLAG = 0x10;
@@ -265,9 +259,6 @@ public class DeviceConnFactoryManager {
         }
     }
 
-    /**
-     * 关闭端口
-     */
     public void closePort(int id) {
         if (this.mPort != null) {
             System.out.println("id -> " + id);
@@ -338,10 +329,8 @@ public class DeviceConnFactoryManager {
      * 查询当前连接打印机所使用打印机指令（ESC（EscCommand.java）、TSC（LabelCommand.java））
      */
     private void queryCommand() {
-        //开启读取打印机返回数据线程
         reader = new PrinterReader();
-        reader.start(); //读取数据线程
-        //查询打印机所使用指令
+        reader.start();
         queryPrinterCommand(); //
     }
 

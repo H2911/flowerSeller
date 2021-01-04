@@ -32,6 +32,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +43,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.printer.command.EscCommand;
 
+import java.lang.ref.Reference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,6 +66,8 @@ public class CreateInvoice extends AppCompatActivity {
             Manifest.permission.BLUETOOTH
     };
     private ThreadPool threadPool;
+
+    private boolean printed = false;
 
     private int	id = 0;
 
@@ -361,7 +366,7 @@ public class CreateInvoice extends AppCompatActivity {
         }
     }
 
-    private void saveInvoice(){
+    private void saveInvoice() {
         //Get invoice
         Invoice invoice = currentInvoice;
 
@@ -373,10 +378,50 @@ public class CreateInvoice extends AppCompatActivity {
         //Reference used to update data
         referenceUpdateData = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("storage");
 
+        //Reference used to update funds
+        referenceOfFunds = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("funds");
+
+        //Add history of funds
+        DatabaseReference historyOfFunds =  referenceOfFunds.child(action).child(invoice.getDate()).child(invoice.getTime()).child(invoice.getName());
+        historyOfFunds.setValue(invoice.getSum()).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                HashMap<String,Object> updateData = new HashMap<>();
+                referenceOfFunds.child("value").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String oldValue = snapshot.getValue(String.class);
+                        String newValue = String.valueOf(invoice.getSum());
+
+                        //Update data from storage
+                        String changedValue;
+                        if (action.equals("buy")) {
+                            changedValue = String.valueOf(Integer.parseInt(oldValue) - Integer.parseInt(newValue));
+                        } else {
+                            changedValue = String.valueOf(Integer.parseInt(oldValue) + Integer.parseInt(newValue));
+                        }
+                        updateData.put("value", changedValue);
+
+                        //updateFunds
+                        referenceOfFunds.updateChildren(updateData).addOnCompleteListener(task -> {
+                            if(task.isSuccessful()){
+                                Toast.makeText(CreateInvoice.this,"Lưu vốn thành công",Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(CreateInvoice.this,"Lưu vốn thất bại",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(CreateInvoice.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
         //Reference used to save invoice
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("invoices").child(action).child(invoice.getDate()).child(invoice.getTime()).child(invoice.getName());
         HashMap<String, String> invoiceInfo = new HashMap<>();
-        HashMap<String,Object> updateData = new HashMap<>();
+        HashMap<String,Object> updateDataInvoice = new HashMap<>();
         List<Item> itemList = invoice.getListItem();
         for (Item item : itemList) {
             invoiceInfo.put(item.getName(), item.getQuantity() + " " + item.getUnit()+" "+item.getPrice());
@@ -396,15 +441,16 @@ public class CreateInvoice extends AppCompatActivity {
                     }else{
                         changedValue = (Integer.parseInt(oldValue) - Integer.parseInt(newValue)) +" "+ unit;
                     }
-                    updateData.put(item.getName(), changedValue);
+                    updateDataInvoice.put(item.getName(), changedValue);
 
                     //Save new invoice
-                    referenceUpdateData.updateChildren(updateData).addOnCompleteListener(task -> {
+                    referenceUpdateData.updateChildren(updateDataInvoice).addOnCompleteListener(task -> {
                         if(task.isSuccessful()){
                             reference.setValue(invoiceInfo).addOnCompleteListener(task1 -> {
                                 if(task1.isSuccessful()){
-                                    Toast.makeText(CreateInvoice.this,"Đã lưu hóa đơn",Toast.LENGTH_SHORT).show();
-                                    Main.productsList.clear();
+                                    Toast.makeText(CreateInvoice.this,"Đã lưu hóa đơn!" ,Toast.LENGTH_SHORT).show();
+                                    printed = true;
+                                    refreshPage();
                                     finish();
                                 }
                                 else {
@@ -413,7 +459,7 @@ public class CreateInvoice extends AppCompatActivity {
                             });
                         }
                         else{
-                            Toast.makeText(CreateInvoice.this,"Lưu dữ liệu thất bại",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateInvoice.this,"Lưu dữ liệu thất bại!",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -445,6 +491,9 @@ public class CreateInvoice extends AppCompatActivity {
                         Utils.toast(CreateInvoice.this,getString(R.string.str_connecting));
                         break;
                     case DeviceConnFactoryManager.CONN_STATE_CONNECTED:
+                        if(printed){
+                            break;
+                        }
                         Utils.toast(CreateInvoice.this,getString(R.string.connected));
 
                         Invoice invoice = currentInvoice;
@@ -467,9 +516,6 @@ public class CreateInvoice extends AppCompatActivity {
                         if (action.equals("buy")) {
                             tvTypeOfInvoice.setText("HÓA ĐƠN MUA HÀNG");
                             tvAction.setText("Người bán:");
-                        } else {
-                            tvTypeOfInvoice.setText("HÓA ĐƠN BÁN HÀNG");
-                            tvAction.setText("Người mua:");
                         }
 
                         int i = 1;
@@ -487,6 +533,7 @@ public class CreateInvoice extends AppCompatActivity {
                         tvSumOfPreInvoice.setText("Tổng: " + invoice.getSum());
 
                         tvDateTimePreInvoice.setText(invoice.getDate() + " " + invoice.getTime());
+
 
                         //Print XML
                         final Bitmap bitmap = convertViewToBitmap(v);
