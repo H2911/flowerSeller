@@ -2,7 +2,51 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+        <TextView
+            android:id="@+id/tvDateTransaction"
+            android:text="29/11/2000"
+            />
+        <TableRow>
+            <TextView
+                android:text="2:00:00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:id="@+id/tvTimeTransaction"
+                android:textSize="18sp"/>
+            <TextView
+                android:text="Trần Khắc Hùng"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:id="@+id/tvNameTransaction"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/tvChangeTransaction"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="+500000"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="18sp"/>
+
+            <Button
+                android:id="@+id/bntViewDetailOfTransaction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Xem"
+                android:layout_weight="0.5"
+                android:textSize="12sp" />
+        </TableRow>
+    </TableLayout>
 
 </androidx.cardview.widget.CardView>
