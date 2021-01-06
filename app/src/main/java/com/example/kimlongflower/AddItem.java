@@ -52,8 +52,8 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
         EditText edQuantity = findViewById(R.id.edQuantity);
 
         //Cancel add item to list process
-        ImageButton bntCancel = findViewById(R.id.ibCancel);
-        bntCancel.setOnClickListener(v -> finish());
+        ImageButton btnCancel = findViewById(R.id.ibCancel);
+        btnCancel.setOnClickListener(v -> finish());
 
         //Add item to list
         Button bntSubmit = findViewById(R.id.bntSubmit);

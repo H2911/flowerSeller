@@ -77,8 +77,8 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
         }
 
         //Pick start date
-        Button bntPickStartDate = findViewById(R.id.bntPickStartDate);
-        bntPickStartDate.setOnClickListener(v -> {
+        Button btnPickStartDate = findViewById(R.id.bntPickStartDate);
+        btnPickStartDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);

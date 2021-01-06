@@ -37,8 +37,8 @@ public class Main extends AppCompatActivity {
         checkFunds();
 
         //Buy product
-        Button bntBuy = findViewById(R.id.bntBuy);
-        bntBuy.setOnClickListener(v -> startActivity(new Intent(Main.this, CreateInvoice.class).putExtra("action","buy")));
+        Button btnBuy = findViewById(R.id.bntBuy);
+        btnBuy.setOnClickListener(v -> startActivity(new Intent(Main.this, CreateInvoice.class).putExtra("action","buy")));
 
         //Sell product
         Button bntSell = findViewById(R.id.bntSell);

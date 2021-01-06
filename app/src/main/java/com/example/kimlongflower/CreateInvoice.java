@@ -112,8 +112,8 @@ public class CreateInvoice extends AppCompatActivity {
         gvItem.setAdapter(customAdapter);
 
         //Add new product to list
-        ImageButton bntAddProduct = findViewById(R.id.iBntAddProduct);
-        bntAddProduct.setOnClickListener(v -> {
+        ImageButton btnAddProduct = findViewById(R.id.iBntAddProduct);
+        btnAddProduct.setOnClickListener(v -> {
             Intent intent = new Intent(CreateInvoice.this, ListProduct.class).putExtra("action",action);
             startActivity(intent);
         });

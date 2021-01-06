@@ -6,18 +6,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,15 +28,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ViewTransaction extends AppCompatActivity {
 
@@ -48,15 +50,21 @@ public class ViewTransaction extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     TextView tvFunds;
+    GridView gvViewTransaction;
+    CustomAdapterTransaction customAdapterTransaction;
 
-    Dialog dialogTransaction;
+    Dialog dialogAddFundsTransaction;
+    Dialog dialogViewDetailTransaction;
+
+    List<Transaction> listTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_transaction);
 
-        dialogTransaction = new Dialog(this);
+        dialogAddFundsTransaction = new Dialog(this);
+        dialogViewDetailTransaction = new Dialog(this);
 
         Date currentDate = new Date();
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
@@ -67,8 +75,8 @@ public class ViewTransaction extends AppCompatActivity {
         tvEndDateInTransaction.setText(formatterDate.format(currentDate));
 
         //Pick start date
-        Button bntPickStartDateInTransaction = findViewById(R.id.bntPickStartDateInTransaction);
-        bntPickStartDateInTransaction.setOnClickListener(v->{
+        Button btnPickStartDateInTransaction = findViewById(R.id.btnPickStartDateInTransaction);
+        btnPickStartDateInTransaction.setOnClickListener(v->{
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
@@ -96,7 +104,7 @@ public class ViewTransaction extends AppCompatActivity {
         };
 
         //Pick end date
-        Button bntPickEndDateInTransaction = findViewById(R.id.bntPickEndDateInTransaction);
+        Button bntPickEndDateInTransaction = findViewById(R.id.btnPickEndDateInTransaction);
         bntPickEndDateInTransaction.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -123,6 +131,119 @@ public class ViewTransaction extends AppCompatActivity {
                 tvStartDateInTransaction.setText(endDate);
             }
         };
+
+        Button btnSearchTransaction = findViewById(R.id.btnSearchTransaction);
+        btnSearchTransaction.setOnClickListener(v -> {
+            listTransaction = new ArrayList<>();
+
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseUser = firebaseAuth.getCurrentUser();
+            String userId = firebaseUser.getUid();
+
+            tvStartDateInTransaction = findViewById(R.id.tvStartDateInTransaction);
+            tvEndDateInTransaction = findViewById(R.id.tvEndDateInTransaction);
+
+            firebaseDatabase = FirebaseDatabase.getInstance();
+
+            //get history of buy
+            databaseReference = firebaseDatabase.getReference("Users").child(userId).child("funds").child("buy");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String name = "";
+                    String changeValue = "";
+                    //get date from database
+                    for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                        //check query
+                        if(ViewHistoryOfInvoices.isDateBetweenStartDateAndEndDate(tvStartDateInTransaction.getText().toString(),tvEndDateInTransaction.getText().toString(),dataSnapshot.getKey())){
+                            //get time data from selected date
+                            for(DataSnapshot timeData:dataSnapshot.getChildren()){
+                                //get seller or buyer name
+                                for(DataSnapshot nameData:timeData.getChildren()){
+                                    name = nameData.getKey();
+                                    changeValue = String.valueOf(nameData.getValue(Long.class));
+                                    listTransaction.add(new Transaction(dataSnapshot.getKey(),timeData.getKey(),name,"buy",changeValue));
+                                }
+                            }
+                        }
+                    }
+                    customAdapterTransaction.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+
+            //get history of sell
+            databaseReference = firebaseDatabase.getReference("Users").child(userId).child("funds").child("sell");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String name = "";
+                    String changeValue = "";
+                    //get date from database
+                    for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                        //check query
+                        if(ViewHistoryOfInvoices.isDateBetweenStartDateAndEndDate(tvStartDateInTransaction.getText().toString(),tvEndDateInTransaction.getText().toString(),dataSnapshot.getKey())){
+                            //get time data from selected date
+                            for(DataSnapshot timeData:dataSnapshot.getChildren()){
+                                //get seller or buyer name
+                                for(DataSnapshot nameData:timeData.getChildren()){
+                                    name = nameData.getKey();
+                                    changeValue = String.valueOf(nameData.getValue(Long.class));
+                                    listTransaction.add(new Transaction(dataSnapshot.getKey(),timeData.getKey(),name,"sell",changeValue));
+                                }
+                            }
+                        }
+                    }
+                    customAdapterTransaction.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+
+            //get history of self add
+            databaseReference = firebaseDatabase.getReference("Users").child(userId).child("funds").child("selfAdd");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String name = "";
+                    String changeValue = "";
+                    //get date from database
+                    for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                        //check query
+                        if(ViewHistoryOfInvoices.isDateBetweenStartDateAndEndDate(tvStartDateInTransaction.getText().toString(),tvEndDateInTransaction.getText().toString(),dataSnapshot.getKey())){
+                            //get time data from selected date
+                            for(DataSnapshot timeData:dataSnapshot.getChildren()){
+                                //get seller or buyer name
+                                for(DataSnapshot nameData:timeData.getChildren()){
+                                    name = nameData.getKey();
+                                    changeValue = String.valueOf(nameData.getValue(Long.class));
+                                    listTransaction.add(new Transaction(dataSnapshot.getKey(),timeData.getKey(),name,"selfAdd",changeValue));
+                                }
+                            }
+                        }
+                    }
+                    customAdapterTransaction.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+
+            if(listTransaction.isEmpty()){
+                Toast.makeText(ViewTransaction.this,"Không có lịch sử để hiển thị!",Toast.LENGTH_SHORT).show();
+            }
+
+            //Show invoice in grid view
+            gvViewTransaction = findViewById(R.id.gvTransaction);
+            customAdapterTransaction = new CustomAdapterTransaction(this,listTransaction);
+            gvViewTransaction.setAdapter(customAdapterTransaction);
+        });
 
         //Show funds
         firebaseAuth = FirebaseAuth.getInstance();
@@ -156,24 +277,24 @@ public class ViewTransaction extends AppCompatActivity {
         });
 
         //add funds
-        Button bntAddFunds = findViewById(R.id.bntAddFunds);
+        Button bntAddFunds = findViewById(R.id.btnAddFunds);
         bntAddFunds.setOnClickListener(v->{
 
             tvFunds = findViewById(R.id.tvFunds);
-            dialogTransaction.setContentView(R.layout.activity_add_funds);
+            dialogAddFundsTransaction.setContentView(R.layout.activity_add_funds);
 
             EditText edPerformer;
             EditText edFundsAdd;
             Button btnConfirmAddFunds;
             Button btnCancelAddFunds;
 
-            edPerformer = dialogTransaction.findViewById(R.id.edPerformer);
-            edFundsAdd = dialogTransaction.findViewById(R.id.edFundsAdd);
-            btnConfirmAddFunds = dialogTransaction.findViewById(R.id.btnConfirmAddFunds);
-            btnCancelAddFunds = dialogTransaction.findViewById(R.id.btnCancelAddFunds);
+            edPerformer = dialogAddFundsTransaction.findViewById(R.id.edPerformer);
+            edFundsAdd = dialogAddFundsTransaction.findViewById(R.id.edFundsAdd);
+            btnConfirmAddFunds = dialogAddFundsTransaction.findViewById(R.id.btnConfirmAddFunds);
+            btnCancelAddFunds = dialogAddFundsTransaction.findViewById(R.id.btnCancelAddFunds);
 
             btnCancelAddFunds.setOnClickListener(v2->{
-                dialogTransaction.dismiss();
+                dialogAddFundsTransaction.dismiss();
             });
 
             btnConfirmAddFunds.setOnClickListener(v1->{
@@ -198,14 +319,26 @@ public class ViewTransaction extends AppCompatActivity {
                                 //Add value to database
                                 updateData.put("value", changedValue);
                                 databaseReference.updateChildren(updateData).addOnCompleteListener(task -> {
-                                   final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ViewTransaction.this);
-                                   alertDialog.setMessage("Đã thêm "+ newValue +" vào vốn"+"\n"+"Vốn hiện tại: "+changedValue);
-                                   alertDialog.setPositiveButton("OK",(dialog, which) -> {
-                                   });
+                                    if(task.isSuccessful()) {
+                                        //Save history
+                                        DatabaseReference referenceOfFundsHistory = databaseReference.child("selfAdd").child(getCurrentDate()).child(getCurrentTime()).child(edPerformer.getText().toString());
+                                        referenceOfFundsHistory.setValue(edFundsAdd.getText().toString()).addOnCompleteListener(task1 -> {
+                                            if (task1.isSuccessful()) {
+                                                final AlertDialog.Builder alertAddSuccessful = new AlertDialog.Builder(ViewTransaction.this);
+                                                alertAddSuccessful.setMessage("Đã thêm " + newValue + " vào vốn" + "\n" + "Vốn hiện tại: " + changedValue);
+                                                alertAddSuccessful.setPositiveButton("OK", (dialog, which) -> {
+                                                });
+                                                alertAddSuccessful.show();
+                                            }
+                                            else {
+                                                Toast.makeText(ViewTransaction.this,"Lưu lịch sử vốn thất bại",Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        Toast.makeText(ViewTransaction.this,"Cập nhật vốn thất bại",Toast.LENGTH_SHORT).show();
+                                    }
                                 });
-
-                                //Save history
-                                databaseReference.child("selfAdd").child(getCurrentDate()).child(getCurrentTime()).setValue(edPerformer.getText().toString(),edFundsAdd.getText().toString());
                             }
 
                             @Override
@@ -213,19 +346,19 @@ public class ViewTransaction extends AppCompatActivity {
 
                             }
                         });
-                        dialogTransaction.dismiss();
+                        dialogAddFundsTransaction.dismiss();
                     });
                     alertConfirm.setNegativeButton("Hủy", (dialog, which) -> {
                     });
                     alertConfirm.create().show();
                 }
             });
-            dialogTransaction.show();
+            dialogAddFundsTransaction.show();
         });
 
 
 
-        Button bntBackMainPageFromViewTransaction = findViewById(R.id.bntBackMainPageFromViewTransaction);
+        Button bntBackMainPageFromViewTransaction = findViewById(R.id.btnBackMainPageFromViewTransaction);
         bntBackMainPageFromViewTransaction.setOnClickListener(v->{finish();});
 
         ImageButton ibBackMainPageFromViewTransaction = findViewById(R.id.ibBackMainPageFromViewTransaction);
@@ -242,5 +375,91 @@ public class ViewTransaction extends AppCompatActivity {
         Date currentDate = new Date();
         SimpleDateFormat formatterDate = new SimpleDateFormat("dd_MM_yyyy");
         return formatterDate.format(currentDate);
+    }
+
+    public class CustomAdapterTransaction extends BaseAdapter{
+        private Context context;
+        private List<Transaction> listTransaction;
+
+        public CustomAdapterTransaction(Context context, List<Transaction> listTransaction) {
+            this.context = context;
+            this.listTransaction = listTransaction;
+        }
+
+        @Override
+        public int getCount() {
+            return listTransaction.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = getLayoutInflater().inflate(R.layout.row_transaction,null);
+            TextView date;
+            TextView time;
+            TextView name;
+            TextView changeValue;
+            Button btnViewDetailTransaction;
+
+            date = v.findViewById(R.id.tvDateTransaction);
+            time = v.findViewById(R.id.tvTimeTransaction);
+            name = v.findViewById(R.id.tvNameTransaction);
+            changeValue = v.findViewById(R.id.tvChangeTransaction);
+            btnViewDetailTransaction = v.findViewById(R.id.bntViewDetailOfTransaction);
+
+            date.setText(listTransaction.get(position).getDate());
+            time.setText(listTransaction.get(position).getTime());
+            name.setText(listTransaction.get(position).getPerformer());
+            if(listTransaction.get(position).getAction().equals("buy")) {
+                changeValue.setText("- "+listTransaction.get(position).getChangeValue());
+            }else if (listTransaction.get(position).getAction().equals("sell")){
+                changeValue.setText("+ "+listTransaction.get(position).getChangeValue());
+            }
+            else{
+                changeValue.setText("+ "+listTransaction.get(position).getChangeValue());
+            }
+            btnViewDetailTransaction.setOnClickListener(v1 -> {
+                dialogViewDetailTransaction.setContentView(R.layout.activity_popup_transaction);
+
+                TextView tvDateTransactionInPopUp = dialogViewDetailTransaction.findViewById(R.id.tvDateTransactionInPopUp);
+                TextView tvTimeTransactionInPopUp = dialogViewDetailTransaction.findViewById(R.id.tvTimeTransactionInPopUp);
+                TextView tvActionTransaction = dialogViewDetailTransaction.findViewById(R.id.tvActionTransaction);
+                TextView tvNameInTransactionInPopUp = dialogViewDetailTransaction.findViewById(R.id.tvNameInTransactionInPopUp);
+                TextView tvChangeValueTransactionInPopUp = dialogViewDetailTransaction.findViewById(R.id.tvChangeValueTransactionInPopUp);
+                Button btnCancelPopupViewDetailTransaction = dialogViewDetailTransaction.findViewById(R.id.btnCancelPopupViewDetailTransaction);
+
+                tvDateTransactionInPopUp.setText("Ngày: "+listTransaction.get(position).getDate());
+                tvTimeTransactionInPopUp.setText("Giờ: "+listTransaction.get(position).getTime());
+                if(listTransaction.get(position).getAction().equals("buy")) {
+                    tvActionTransaction.setText("Phương thức: Mua hàng");
+                    tvNameInTransactionInPopUp.setText("Người bán: "+listTransaction.get(position).getPerformer());
+                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: - "+listTransaction.get(position).getChangeValue());
+                }else if (listTransaction.get(position).getAction().equals("sell")){
+                    tvActionTransaction.setText("Phương thức: Bán hàng");
+                    tvNameInTransactionInPopUp.setText("Người mua: "+listTransaction.get(position).getPerformer());
+                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: + "+listTransaction.get(position).getChangeValue());
+                }
+                else{
+                    tvActionTransaction.setText("Phương thức: Tự thêm vốn");
+                    tvNameInTransactionInPopUp.setText("Người thêm vốn: "+listTransaction.get(position).getPerformer());
+                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: + "+listTransaction.get(position).getChangeValue());
+                }
+
+                btnCancelPopupViewDetailTransaction.setOnClickListener(v2->{dialogViewDetailTransaction.dismiss();});
+
+                dialogViewDetailTransaction.show();
+            });
+
+            return v;
+        }
     }
 }

@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 
 public class ChooseTypeOfHistory extends AppCompatActivity {
 
-    Button bntDirectToSellHistory;
+    Button btnDirectToSellHistory;
     Button bntDirectToBuyHistory;
     ImageButton ibBackMainPage;
     Button bntBackMainPage;
@@ -22,8 +22,8 @@ public class ChooseTypeOfHistory extends AppCompatActivity {
         bntDirectToBuyHistory = findViewById(R.id.bntDirectToBuyHistory);
         bntDirectToBuyHistory.setOnClickListener(v -> startActivity(new Intent(ChooseTypeOfHistory.this,ViewHistoryOfInvoices.class).putExtra("action","buy")));
 
-        bntDirectToSellHistory = findViewById(R.id.bntDirectToSellHistory);
-        bntDirectToSellHistory.setOnClickListener(v -> startActivity(new Intent(ChooseTypeOfHistory.this,ViewHistoryOfInvoices.class).putExtra("action","sell")));
+        btnDirectToSellHistory = findViewById(R.id.bntDirectToSellHistory);
+        btnDirectToSellHistory.setOnClickListener(v -> startActivity(new Intent(ChooseTypeOfHistory.this,ViewHistoryOfInvoices.class).putExtra("action","sell")));
 
         bntBackMainPage = findViewById(R.id.bntBackMainPage);
         bntBackMainPage.setOnClickListener(v -> finish());

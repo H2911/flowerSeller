@@ -97,8 +97,8 @@ public class ListProduct extends AppCompatActivity {
         gvProduct.setAdapter(customAdapter);
 
         //Back to buy page
-        Button bntBackBuyPage = findViewById(R.id.bntBackBuyPage);
-        bntBackBuyPage.setOnClickListener(v -> finish());
+        Button btnBackBuyPage = findViewById(R.id.bntBackBuyPage);
+        btnBackBuyPage.setOnClickListener(v -> finish());
 
         //Search product base on the name
         searchView = findViewById(R.id.searchView);
