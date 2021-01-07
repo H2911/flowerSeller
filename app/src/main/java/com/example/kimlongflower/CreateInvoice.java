@@ -147,8 +147,19 @@ public class CreateInvoice extends AppCompatActivity {
                 });
                 emptyNameAlert.create().show();
             } else if (!Main.productsList.isEmpty()) {
-                currentInvoice = getCurrentInvoice();
-                printInvoice(v);
+                final AlertDialog.Builder alertPrint = new AlertDialog.Builder(CreateInvoice.this);
+                alertPrint.setMessage("Lưu hóa đơn!");
+                alertPrint.setPositiveButton("In và lưu hóa đơn", (dialog, which) ->{
+                        currentInvoice = getCurrentInvoice();
+                        printInvoice(v);
+                });
+                alertPrint.setNegativeButton("Lưu hóa đơn",(dialog, which) -> {
+                    currentInvoice = getCurrentInvoice();
+                    saveInvoice();
+                });
+                alertPrint.setNeutralButton("Hủy", (dialog, which) -> {
+                });
+                alertPrint.create().show();
             }
             else {
                 Toast.makeText(CreateInvoice.this,"Danh sách mặt hàng còn trống!",Toast.LENGTH_SHORT).show();
@@ -228,7 +239,7 @@ public class CreateInvoice extends AppCompatActivity {
         tb.setLayoutParams( new TableLayout.LayoutParams( TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT ) );
         TextView tv2 = new TextView( context );
         tv2.setLayoutParams( new TableRow.LayoutParams( TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT ) );
-        tv2.setText( quantity+" "+ unit+" x "+price+" = "+sumOfItem );
+        tv2.setText( NumberTextWatcherForThousand.getDecimalFormattedString(quantity)+" "+ unit+" x "+ NumberTextWatcherForThousand.getDecimalFormattedString(price) +" = "+ NumberTextWatcherForThousand.getDecimalFormattedString(sumOfItem ));
         tv2.setTextColor( Color.BLACK );
         tv2.setTextSize( 8 );
         tb.addView( tv2 );
@@ -346,9 +357,9 @@ public class CreateInvoice extends AppCompatActivity {
             ImageButton ibDelete = view.findViewById(R.id.ibRemove);
 
             tvNameItem.setText(itemList.get(position).getName());
-            tvQuantity.setText(itemList.get(position).getQuantity()+" "+itemList.get(position).getUnit());
-            tvPrice.setText(itemList.get(position).getPrice());
-            tvSumOfItem.setText(itemList.get(position).getSumOfItem());
+            tvQuantity.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getQuantity())+" "+itemList.get(position).getUnit());
+            tvPrice.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getPrice()));
+            tvSumOfItem.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getSumOfItem()));
 
             ibDelete.setOnClickListener(v -> {
                 final AlertDialog.Builder backMainPageAlert = new AlertDialog.Builder(CreateInvoice.this);
@@ -389,17 +400,17 @@ public class CreateInvoice extends AppCompatActivity {
                 referenceOfFunds.child("value").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String oldValue = snapshot.getValue(String.class);
+                        String oldValue = String.valueOf(snapshot.getValue(Long.class));
                         String newValue = String.valueOf(invoice.getSum());
 
                         //Update data from storage
                         String changedValue;
                         if (action.equals("buy")) {
-                            changedValue = String.valueOf(Integer.parseInt(oldValue) - Integer.parseInt(newValue));
+                            changedValue = String.valueOf(Long.parseLong(oldValue) - Long.parseLong(newValue));
                         } else {
-                            changedValue = String.valueOf(Integer.parseInt(oldValue) + Integer.parseInt(newValue));
+                            changedValue = String.valueOf(Long.parseLong(oldValue) + Long.parseLong(newValue));
                         }
-                        updateData.put("value", changedValue);
+                        updateData.put("value", Long.parseLong(changedValue));
 
                         //updateFunds
                         referenceOfFunds.updateChildren(updateData).addOnCompleteListener(task -> {
@@ -530,7 +541,7 @@ public class CreateInvoice extends AppCompatActivity {
                             i++;
                         }
 
-                        tvSumOfPreInvoice.setText("Tổng: " + invoice.getSum());
+                        tvSumOfPreInvoice.setText("Tổng: " + NumberTextWatcherForThousand.getDecimalFormattedString(String.valueOf(invoice.getSum())));
 
                         tvDateTimePreInvoice.setText(invoice.getDate() + " " + invoice.getTime());
 

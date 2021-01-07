@@ -132,6 +132,7 @@ public class ViewTransaction extends AppCompatActivity {
             }
         };
 
+        //Search history of Transaction
         Button btnSearchTransaction = findViewById(R.id.btnSearchTransaction);
         btnSearchTransaction.setOnClickListener(v -> {
             listTransaction = new ArrayList<>();
@@ -147,7 +148,7 @@ public class ViewTransaction extends AppCompatActivity {
 
             //get history of buy
             databaseReference = firebaseDatabase.getReference("Users").child(userId).child("funds").child("buy");
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     String name = "";
@@ -168,6 +169,9 @@ public class ViewTransaction extends AppCompatActivity {
                         }
                     }
                     customAdapterTransaction.notifyDataSetChanged();
+                    if(listTransaction.isEmpty()){
+                        Toast.makeText(ViewTransaction.this,"Không có giao dịch bán hàng!",Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
@@ -177,7 +181,7 @@ public class ViewTransaction extends AppCompatActivity {
 
             //get history of sell
             databaseReference = firebaseDatabase.getReference("Users").child(userId).child("funds").child("sell");
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     String name = "";
@@ -198,6 +202,9 @@ public class ViewTransaction extends AppCompatActivity {
                         }
                     }
                     customAdapterTransaction.notifyDataSetChanged();
+                    if(listTransaction.isEmpty()){
+                        Toast.makeText(ViewTransaction.this,"Không có giao dịch mua hàng!",Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
@@ -207,11 +214,11 @@ public class ViewTransaction extends AppCompatActivity {
 
             //get history of self add
             databaseReference = firebaseDatabase.getReference("Users").child(userId).child("funds").child("selfAdd");
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String name = "";
-                    String changeValue = "";
+                    String name;
+                    String changeValue;
                     //get date from database
                     for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                         //check query
@@ -221,13 +228,17 @@ public class ViewTransaction extends AppCompatActivity {
                                 //get seller or buyer name
                                 for(DataSnapshot nameData:timeData.getChildren()){
                                     name = nameData.getKey();
-                                    changeValue = String.valueOf(nameData.getValue(Long.class));
+                                    changeValue = String.valueOf(nameData.getValue(String.class));
                                     listTransaction.add(new Transaction(dataSnapshot.getKey(),timeData.getKey(),name,"selfAdd",changeValue));
+
                                 }
                             }
                         }
                     }
                     customAdapterTransaction.notifyDataSetChanged();
+                    if(listTransaction.isEmpty()){
+                        Toast.makeText(ViewTransaction.this,"Không có lịch sử tự thêm vốn!",Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
@@ -235,11 +246,7 @@ public class ViewTransaction extends AppCompatActivity {
                 }
             });
 
-            if(listTransaction.isEmpty()){
-                Toast.makeText(ViewTransaction.this,"Không có lịch sử để hiển thị!",Toast.LENGTH_SHORT).show();
-            }
-
-            //Show invoice in grid view
+            //Show transaction in grid view
             gvViewTransaction = findViewById(R.id.gvTransaction);
             customAdapterTransaction = new CustomAdapterTransaction(this,listTransaction);
             gvViewTransaction.setAdapter(customAdapterTransaction);
@@ -261,7 +268,7 @@ public class ViewTransaction extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         tvFunds = findViewById(R.id.tvFunds);
-                        tvFunds.setText(snapshot.getValue(String.class)+" đ");
+                        tvFunds.setText(NumberTextWatcherForThousand.getDecimalFormattedString(String.valueOf(snapshot.getValue(Long.class)))+" đ");
                     }
 
                     @Override
@@ -290,6 +297,9 @@ public class ViewTransaction extends AppCompatActivity {
 
             edPerformer = dialogAddFundsTransaction.findViewById(R.id.edPerformer);
             edFundsAdd = dialogAddFundsTransaction.findViewById(R.id.edFundsAdd);
+            //separate number by thousand
+            edFundsAdd.addTextChangedListener(new NumberTextWatcherForThousand(edFundsAdd));
+
             btnConfirmAddFunds = dialogAddFundsTransaction.findViewById(R.id.btnConfirmAddFunds);
             btnCancelAddFunds = dialogAddFundsTransaction.findViewById(R.id.btnCancelAddFunds);
 
@@ -312,20 +322,21 @@ public class ViewTransaction extends AppCompatActivity {
                         databaseReference.child("value").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                String oldValue =  snapshot.getValue(String.class);
-                                String newValue = edFundsAdd.getText().toString();
+                                String oldValue = String.valueOf(snapshot.getValue(Long.class));
+                                String newValue = NumberTextWatcherForThousand.trimCommaOfString(edFundsAdd.getText().toString());
 
-                                String changedValue = String.valueOf(Integer.parseInt(oldValue)+Integer.parseInt(newValue));
+                                String changedValue = String.valueOf(Long.parseLong(oldValue)+Long.parseLong(newValue));
                                 //Add value to database
-                                updateData.put("value", changedValue);
+                                updateData.put("value", Long.parseLong(changedValue));
                                 databaseReference.updateChildren(updateData).addOnCompleteListener(task -> {
                                     if(task.isSuccessful()) {
                                         //Save history
                                         DatabaseReference referenceOfFundsHistory = databaseReference.child("selfAdd").child(getCurrentDate()).child(getCurrentTime()).child(edPerformer.getText().toString());
-                                        referenceOfFundsHistory.setValue(edFundsAdd.getText().toString()).addOnCompleteListener(task1 -> {
+                                        referenceOfFundsHistory.setValue(NumberTextWatcherForThousand.trimCommaOfString(edFundsAdd.getText().toString())).addOnCompleteListener(task1 -> {
                                             if (task1.isSuccessful()) {
                                                 final AlertDialog.Builder alertAddSuccessful = new AlertDialog.Builder(ViewTransaction.this);
-                                                alertAddSuccessful.setMessage("Đã thêm " + newValue + " vào vốn" + "\n" + "Vốn hiện tại: " + changedValue);
+                                                alertAddSuccessful.setMessage("Đã thêm " + NumberTextWatcherForThousand.getDecimalFormattedString(newValue) +
+                                                        " vào vốn" + "\n" + "Vốn hiện tại: " + NumberTextWatcherForThousand.getDecimalFormattedString(changedValue));
                                                 alertAddSuccessful.setPositiveButton("OK", (dialog, which) -> {
                                                 });
                                                 alertAddSuccessful.show();
@@ -420,12 +431,12 @@ public class ViewTransaction extends AppCompatActivity {
             time.setText(listTransaction.get(position).getTime());
             name.setText(listTransaction.get(position).getPerformer());
             if(listTransaction.get(position).getAction().equals("buy")) {
-                changeValue.setText("- "+listTransaction.get(position).getChangeValue());
+                changeValue.setText("- "+NumberTextWatcherForThousand.getDecimalFormattedString(listTransaction.get(position).getChangeValue()));
             }else if (listTransaction.get(position).getAction().equals("sell")){
-                changeValue.setText("+ "+listTransaction.get(position).getChangeValue());
+                changeValue.setText("+ "+NumberTextWatcherForThousand.getDecimalFormattedString(listTransaction.get(position).getChangeValue()));
             }
             else{
-                changeValue.setText("+ "+listTransaction.get(position).getChangeValue());
+                changeValue.setText("+ "+NumberTextWatcherForThousand.getDecimalFormattedString(listTransaction.get(position).getChangeValue()));
             }
             btnViewDetailTransaction.setOnClickListener(v1 -> {
                 dialogViewDetailTransaction.setContentView(R.layout.activity_popup_transaction);
@@ -442,16 +453,16 @@ public class ViewTransaction extends AppCompatActivity {
                 if(listTransaction.get(position).getAction().equals("buy")) {
                     tvActionTransaction.setText("Phương thức: Mua hàng");
                     tvNameInTransactionInPopUp.setText("Người bán: "+listTransaction.get(position).getPerformer());
-                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: - "+listTransaction.get(position).getChangeValue());
+                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: - "+NumberTextWatcherForThousand.getDecimalFormattedString(listTransaction.get(position).getChangeValue()));
                 }else if (listTransaction.get(position).getAction().equals("sell")){
                     tvActionTransaction.setText("Phương thức: Bán hàng");
                     tvNameInTransactionInPopUp.setText("Người mua: "+listTransaction.get(position).getPerformer());
-                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: + "+listTransaction.get(position).getChangeValue());
+                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: + "+NumberTextWatcherForThousand.getDecimalFormattedString(listTransaction.get(position).getChangeValue()));
                 }
                 else{
                     tvActionTransaction.setText("Phương thức: Tự thêm vốn");
                     tvNameInTransactionInPopUp.setText("Người thêm vốn: "+listTransaction.get(position).getPerformer());
-                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: + "+listTransaction.get(position).getChangeValue());
+                    tvChangeValueTransactionInPopUp.setText("Tổng vốn: + "+NumberTextWatcherForThousand.getDecimalFormattedString(listTransaction.get(position).getChangeValue()));
                 }
 
                 btnCancelPopupViewDetailTransaction.setOnClickListener(v2->{dialogViewDetailTransaction.dismiss();});

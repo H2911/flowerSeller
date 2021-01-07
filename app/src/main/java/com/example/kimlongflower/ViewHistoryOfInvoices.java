@@ -255,7 +255,7 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
                 tvDateInvoiceInPopUp.setText(invoiceList.get(position).getDate());
                 tvTimeInvoiceInPopUp.setText(invoiceList.get(position).getTime());
                 tvNameInInvoiceInPopUp.setText(invoiceList.get(position).getName());
-                tvSumOfInvoiceInPopUp.setText("Tổng: "+ invoiceList.get(position).getSum()+ " đ");
+                tvSumOfInvoiceInPopUp.setText("Tổng: "+ NumberTextWatcherForThousand.getDecimalFormattedString(String.valueOf(invoiceList.get(position).getSum()))+ " đ");
 
                 //custom popup dialog
                 customAdapterPopUp = new CustomAdapterPopUp(invoiceList.get(position), dialogInvoice.getContext());
@@ -330,9 +330,9 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
             TextView tvSumOfItemList = view.findViewById(R.id.tvSumOfItemList);
 
             tvItemNameInPopUpInvoice.setText(itemList.get(position).getName());
-            tvQuantityInPopUpInvoice.setText(itemList.get(position).getQuantity()+" "+itemList.get(position).getUnit());
-            tvPriceInPopUpInvoice.setText(itemList.get(position).getPrice());
-            tvSumOfItemList.setText(itemList.get(position).getSumOfItem()+" đ");
+            tvQuantityInPopUpInvoice.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getQuantity())+" "+itemList.get(position).getUnit());
+            tvPriceInPopUpInvoice.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getPrice()));
+            tvSumOfItemList.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getSumOfItem())+" đ");
 
             return view;
         }
@@ -347,7 +347,11 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
         int monthOfDateEnd = Integer.parseInt(endDate.split("/")[1]);
         int dayOfDateEnd = Integer.parseInt(endDate.split("/")[0]);
 
-        if(yearOfDateStart<=yearOfDateEnd){
+        if(yearOfDateStart<yearOfDateEnd){
+            return true;
+        }
+
+        if(yearOfDateStart==yearOfDateEnd){
             if(monthOfDateStart<=monthOfDateEnd){
                 return dayOfDateStart <= dayOfDateEnd;
             }

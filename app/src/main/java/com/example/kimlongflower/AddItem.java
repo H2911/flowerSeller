@@ -49,7 +49,12 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
         }
 
         EditText edPrice = findViewById(R.id.edPrice);
+        //Separate number by thousand
+        edPrice.addTextChangedListener(new NumberTextWatcherForThousand(edPrice));
+
         EditText edQuantity = findViewById(R.id.edQuantity);
+        //Separate number by thousand
+        edQuantity.addTextChangedListener(new NumberTextWatcherForThousand(edQuantity));
 
         //Cancel add item to list process
         ImageButton btnCancel = findViewById(R.id.ibCancel);
@@ -63,9 +68,11 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
             } else if (edQuantity.getText().toString().matches("")) {
                 Toast.makeText(getApplicationContext(), "Số lượng không thể bỏ trống", Toast.LENGTH_SHORT).show();
             } else {
-                if (action.equals("sell") && (Integer.parseInt(edQuantity.getText().toString()) > Integer.parseInt(itemsModel.getQuantity().split(" ")[0].trim()))) {
+                //remove comma separate thousand
+                String quantity = NumberTextWatcherForThousand.trimCommaOfString(edQuantity.getText().toString());
+                if (action.equals("sell") && (Integer.parseInt(quantity) > Integer.parseInt(itemsModel.getQuantity().split(" ")[0].trim()))) {
                     final AlertDialog.Builder insufficientAlert = new AlertDialog.Builder(AddItem.this);
-                    insufficientAlert.setMessage("Số lượng hàng không đủ!!" + "\n" + "Số lượng hàng còn lại: " + itemsModel.getQuantity());
+                    insufficientAlert.setMessage("Số lượng hàng không đủ!!" + "\n" + "Số lượng hàng còn lại: " + NumberTextWatcherForThousand.getDecimalFormattedString(itemsModel.getQuantity()));
                     insufficientAlert.setNegativeButton("OK", (dialog, which) -> {
                         //reset quantity
                         edQuantity.setText("");
@@ -73,7 +80,7 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
                     insufficientAlert.create().show();
                 }
                 else {
-                    Main.productsList.add(new Item(tvNameItem.getText().toString(), edQuantity.getText().toString(),edPrice.getText().toString(), tvUnit.getText().toString()));
+                    Main.productsList.add(new Item(tvNameItem.getText().toString(), NumberTextWatcherForThousand.trimCommaOfString(edQuantity.getText().toString()),NumberTextWatcherForThousand.trimCommaOfString(edPrice.getText().toString()), tvUnit.getText().toString()));
                     CreateInvoice.customAdapter.notifyDataSetChanged();
                     ListProduct.activityProduct.finish();
                     finish();

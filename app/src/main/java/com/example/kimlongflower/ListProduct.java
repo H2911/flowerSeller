@@ -81,7 +81,7 @@ public class ListProduct extends AppCompatActivity {
                     if(images.length>j&&images[j]!=0) {
                         itemsModelList.add(new ItemsModel(names[j], snapshot.getValue().toString().split(" ")[0].trim(),snapshot.getValue().toString().split(" ")[1].trim(), images[j]));
                     }else {
-                        itemsModelList.add(new ItemsModel(names[j],snapshot.getValue().toString().split(" ")[0].trim(),snapshot.getValue().toString().split(" ")[1].trim(),R.drawable.logo));
+                        itemsModelList.add(new ItemsModel(names[j], snapshot.getValue().toString().split(" ")[0].trim(),snapshot.getValue().toString().split(" ")[1].trim(),R.drawable.logo));
                     }
                     customAdapter.notifyDataSetChanged();
                 }
@@ -152,7 +152,7 @@ public class ListProduct extends AppCompatActivity {
 
             imageView.setImageResource(itemsModelListFiltered.get(position).getImage());
             tvName.setText(itemsModelListFiltered.get(position).getName());
-            tvQuantity.setText(itemsModelListFiltered.get(position).getQuantity() +" "+ itemsModelListFiltered.get(position).getUnit());
+            tvQuantity.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemsModelListFiltered.get(position).getQuantity()) +" "+ itemsModelListFiltered.get(position).getUnit());
 
             view.setOnClickListener(v -> {
                 if(!action.equals("view store")) {
