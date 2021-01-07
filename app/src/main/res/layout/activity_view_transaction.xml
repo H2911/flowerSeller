@@ -37,7 +37,8 @@
         android:layout_marginHorizontal="20dp"
         android:layout_below="@+id/btnSearchTransaction"
         android:layout_centerHorizontal="true"
-        android:numColumns="1" >
+        android:numColumns="1"
+        android:layout_above="@+id/btnBackMainPageFromViewTransaction">
 
         <TableRow>
 
@@ -72,17 +73,14 @@
             <TextView
                 android:layout_weight="0.5"/>
         </TableRow>
+
+        <GridView
+            android:id="@+id/gvTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </TableLayout>
 
-    <GridView
-        android:layout_below="@+id/tbTransaction"
-        android:id="@+id/gvTransaction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_above="@id/btnBackMainPageFromViewTransaction"
-        android:layout_marginBottom="40dp"/>
+
 
     <TextView
         android:id="@+id/textView6"
