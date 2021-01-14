@@ -1,4 +1,10 @@
 <resources>
+    <string-array name="typeOfCompany">
+        <item>Doanh nghiệp tư nhân</item>
+        <item>Công ty hợp danh</item>
+        <item>Công ty TNHH</item>
+        <item>Công ty cổ phần</item>
+    </string-array>
     <string name="app_name">Kim Long Flower</string>
     <string name="title_paired_devices">Paired</string>
     <string name="title_other_devices">New</string>
@@ -104,4 +110,4 @@
     <string name="str_amid_power">charge: medium battery</string>
     <string name="str_high_power">charge: high battery</string>   
     <string name="str_charging">charging</string>
-    </resources>
+</resources>
