@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingCompany">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="192dp"
+        tools:layout_editor_absoluteY="213dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <TextView
+                android:id="@+id/tvCancelSettingCompanyInfo"
+                android:background="@drawable/rounded_button_with_gray_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="  X  "
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="40dp"
+                android:clickable="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/tvStringCompanyName"
+                android:layout_width="112dp"
+                android:layout_below="@+id/tvCancelSettingCompanyInfo"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:text="Tên công ty:" />
+
+            <EditText
+                android:id="@+id/edCompanyName"
+                android:layout_alignBaseline="@+id/tvStringCompanyName"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="32dp"
+                android:layout_toEndOf="@+id/tvStringCompanyName"
+                android:layout_alignParentEnd="true"/>
+
+            <TextView
+                android:id="@+id/tvStringTypeOfCompany"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvStringCompanyName"
+                android:layout_alignStart="@+id/tvStringCompanyName"
+                android:layout_marginTop="40dp"
+                android:textSize="15sp"
+                android:text="Mô hình doanh nghiệp:"/>
+
+            <Spinner
+                android:id="@+id/sTypeOFCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_alignBaseline="@+id/tvStringTypeOfCompany"
+                android:layout_alignStart="@+id/edCompanyName"/>
+
+            <TextView
+                android:id="@+id/tvStringAddress"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvStringTypeOfCompany"
+                android:layout_alignStart="@+id/tvStringCompanyName"
+                android:layout_marginTop="40dp"
+                android:textSize="15sp"
+                android:text="Địa chỉ"/>
+
+            <EditText
+                android:id="@+id/edAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_alignBaseline="@+id/tvStringAddress"
+                android:layout_alignStart="@+id/sTypeOFCompany"/>
+
+            <TextView
+                android:id="@+id/tvStringCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvStringAddress"
+                android:layout_alignStart="@+id/tvStringAddress"
+                android:layout_marginTop="40dp"
+                android:textSize="15sp"
+                android:text="Thành phố: "/>
+
+            <EditText
+                android:id="@+id/edCity"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_alignBaseline="@+id/tvStringCity"
+                android:layout_toEndOf="@+id/tvStringCity"/>
+
+            <TextView
+                android:id="@+id/tvStringProvince"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_below="@+id/tvStringAddress"
+                android:layout_toEndOf="@+id/edCity"
+                android:layout_marginTop="40dp"
+                android:textSize="15sp"
+                android:text="Tỉnh "/>
+
+            <EditText
+                android:id="@+id/edProvince"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_alignBaseline="@+id/tvStringCity"
+                android:layout_toEndOf="@+id/tvStringProvince"/>
+
+            <TextView
+                android:id="@+id/tvStringPhoneNumber1"
+                android:textSize="15sp"
+                android:text="Số điện thoại 1 (nếu có): "
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_alignStart="@id/tvStringCity"
+                android:layout_below="@+id/tvStringCity"/>
+
+            <EditText
+                android:id="@+id/edPhoneNumber1"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:inputType="phone"
+                android:layout_alignBaseline="@+id/tvStringPhoneNumber1"
+                android:layout_alignStart="@+id/edAddress"/>
+
+            <TextView
+                android:id="@+id/tvStringPhoneNumber2"
+                android:textSize="15sp"
+                android:text="Số điện thoại 2 (nếu có): "
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_alignStart="@id/tvStringPhoneNumber1"
+                android:layout_below="@+id/tvStringPhoneNumber1"/>
+
+            <EditText
+                android:id="@+id/edPhoneNumber2"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:inputType="phone"
+                android:layout_alignBaseline="@+id/tvStringPhoneNumber2"
+                android:layout_alignStart="@+id/edPhoneNumber1"/>
+
+            <Button
+                android:id="@+id/btnConfirmCompanyInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edPhoneNumber2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:background="#b3e5fc"
+                android:text="Cập nhật"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

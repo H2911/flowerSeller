@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="24dp"
         android:layout_alignBaseline="@+id/tvExplainFunds"
         android:background="#b3e5fc"
         android:text="Thêm vốn"
@@ -97,6 +97,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="29/11/2000"
+        android:layout_toStartOf="@+id/btnPickStartDateInTransaction"
+        android:layout_marginEnd="20dp"
         android:layout_alignBaseline="@+id/textView6"
         android:layout_alignStart="@+id/tvFunds"
         android:textSize="18sp" />
@@ -107,6 +109,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView9"
         android:layout_alignStart="@+id/tvFunds"
+        android:layout_toStartOf="@+id/btnPickEndDateInTransaction"
+        android:layout_marginEnd="20dp"
         android:text="29/11/2000"
         android:textSize="18sp" />
 
@@ -195,12 +199,14 @@
     <TextView
         android:id="@+id/tvFunds"
         android:text="0 đ"
+        android:layout_toStartOf="@+id/btnAddFunds"
+        android:layout_marginEnd="20dp"
         android:layout_toEndOf="@+id/tvExplainFunds"
         android:layout_alignBaseline="@+id/tvExplainFunds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="48dp"
         android:textSize="18sp"/>
 
 </RelativeLayout>

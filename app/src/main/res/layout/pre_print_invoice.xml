@@ -9,15 +9,17 @@
     >
 
     <TextView
+        android:id="@+id/tvTypeOfCompany"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Công ty TNHH"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:gravity="center" />" />
 
     <TextView
+        android:id="@+id/tvCompanyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=" Kim Long Flower"
@@ -26,6 +28,7 @@
         android:gravity="center" />
 
     <TextView
+        android:id="@+id/tvAddress"
         android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,6 +38,7 @@
         tools:ignore="SmallSp" />
 
     <TextView
+        android:id="@+id/tvProvince"
         android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,6 +48,7 @@
         tools:ignore="SmallSp" />
 
     <TextView
+        android:id="@+id/tvPhone1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -53,6 +58,7 @@
         tools:ignore="SmallSp" />
 
     <TextView
+        android:id="@+id/tvPhone2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"

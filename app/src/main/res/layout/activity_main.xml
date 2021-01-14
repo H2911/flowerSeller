@@ -15,60 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bntSell"
-        android:layout_width="140dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/view3"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="160dp"
-        android:background="@drawable/rounded_button_with_blue_color"
-        android:text="Bán Hàng"/>
 
-    <Button
-        android:id="@+id/bntViewStore"
-        android:layout_width="140dp"
-        android:layout_height="120dp"
-        android:layout_alignEnd="@+id/view3"
-        android:layout_below="@+id/view3"
-        android:layout_marginEnd="160dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/rounded_button_with_blue_color"
-        android:text="Xem Kho" />
-
-    <Button
-        android:id="@+id/bntViewHistoryOfInvoice"
-        android:layout_width="140dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/bntSell"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="160dp"
-        android:background="@drawable/rounded_button_with_blue_color"
-        android:text="Xem Hóa Đơn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bntViewStore" />
-
-    <Button
-        android:id="@+id/bntViewTransaction"
-        android:layout_width="140dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/bntViewHistoryOfInvoice"
-        android:layout_marginTop="60dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/rounded_button_with_blue_color"
-        android:text="Lịch Sử Giao Dịch" />
-
-    <Button
-        android:id="@+id/bntBuy"
-        android:layout_width="140dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/bntViewStore"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="160dp"
-        android:background="@drawable/rounded_button_with_blue_color"
-        android:text="Nhập Hàng"/>
 
     <Button
         android:id="@+id/bntLogout"
@@ -77,8 +24,108 @@
         android:layout_height="80dp"
         android:background="@drawable/rounded_button_with_gray_color"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="40dp"
         android:text="Đăng xuất" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_above="@+id/bntLogout"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/view3"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/bntSell"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="43dp"
+                android:background="@drawable/rounded_button_with_blue_color"
+                android:text="Bán Hàng"
+                app:layout_constraintBottom_toTopOf="@+id/bntViewStore"
+                app:layout_constraintEnd_toStartOf="@+id/bntBuy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bntViewStore"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
+                android:layout_alignBaseline="@+id/bntSell"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/rounded_button_with_blue_color"
+                android:text="Xem Kho"
+                app:layout_constraintEnd_toStartOf="@+id/bntViewTransaction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bntSell" />
+
+            <Button
+                android:id="@+id/bntViewHistoryOfInvoice"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/bntSell"
+                android:layout_alignBaseline="@+id/bntBuy"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="132dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="132dp"
+                android:background="@drawable/rounded_button_with_blue_color"
+                android:text="Xem Hóa Đơn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bntViewStore" />
+
+            <Button
+                android:id="@+id/bntViewTransaction"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/bntViewHistoryOfInvoice"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/rounded_button_with_blue_color"
+                android:text="Lịch Sử Giao Dịch"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bntViewStore"
+                app:layout_constraintTop_toBottomOf="@+id/bntBuy" />
+
+            <Button
+                android:id="@+id/bntBuy"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/bntViewStore"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/rounded_button_with_blue_color"
+                android:text="Nhập Hàng"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bntSell"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/iBtnSettingUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/rsz_1rsz_setting"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:background="#b3e5fc"/>
 
 
 </RelativeLayout>

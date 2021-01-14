@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,23 +33,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
 
-    <Button
-        android:id="@+id/bntDirectToBuyHistory"
-        android:layout_width="140dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="150dp"
-        android:layout_centerVertical="true"
-        android:background="@drawable/rounded_button_with_blue_color"
-        android:text="Lịch sử mua hàng" />
-    <Button
-        android:id="@+id/bntDirectToSellHistory"
-        android:layout_width="140dp"
-        android:layout_height="120dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="160dp"
-        android:layout_centerVertical="true"
-        android:background="@drawable/rounded_button_with_blue_color"
-        android:text="Lịch sử bán hàng" />
 
     <Button
         android:id="@+id/bntBackMainPage"
@@ -59,4 +43,47 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_button_with_gray_color"
         android:text="Trở lại"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view5"
+        android:layout_above="@+id/bntBackMainPage"
+        android:layout_marginBottom="40dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/bntDirectToBuyHistory"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/rounded_button_with_blue_color"
+                android:text="Lịch sử mua hàng"
+                app:layout_constraintEnd_toStartOf="@+id/bntDirectToSellHistory"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/bntDirectToSellHistory"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/rounded_button_with_blue_color"
+                android:text="Lịch sử bán hàng"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bntDirectToBuyHistory"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </RelativeLayout>
