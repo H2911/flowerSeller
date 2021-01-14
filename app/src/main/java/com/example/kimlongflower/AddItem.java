@@ -23,13 +23,12 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
     TextView tvUnit;
     ItemsModel itemsModel;
     String action;
+    String realQuantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-
-        action  = (String) getIntent().getSerializableExtra("action");
 
         imageView = findViewById(R.id.imItem);
         tvNameItem = findViewById(R.id.tvItemName);
@@ -38,6 +37,8 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
         Intent intent = getIntent();
 
         if (intent.getExtras()!=null){
+            action  = (String) getIntent().getSerializableExtra("action");
+            realQuantity = (String) getIntent().getSerializableExtra("realQuantity");
             itemsModel = (ItemsModel) getIntent().getSerializableExtra("item");
             imageView.setImageResource(itemsModel.getImage());
 
@@ -63,16 +64,17 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
         //Add item to list
         Button bntSubmit = findViewById(R.id.bntSubmit);
         bntSubmit.setOnClickListener(v -> {
-            if (edPrice.getText().toString().matches("")) {
-                Toast.makeText(getApplicationContext(), "Đơn giá không thể bỏ trống", Toast.LENGTH_SHORT).show();
-            } else if (edQuantity.getText().toString().matches("")) {
-                Toast.makeText(getApplicationContext(), "Số lượng không thể bỏ trống", Toast.LENGTH_SHORT).show();
+            if (edPrice.getText().toString().trim().matches("")) {
+                Toast.makeText(AddItem.this, "Đơn giá không thể bỏ trống", Toast.LENGTH_SHORT).show();
+            } else if (edQuantity.getText().toString().trim().matches("")) {
+                Toast.makeText(AddItem.this, "Số lượng không thể bỏ trống", Toast.LENGTH_SHORT).show();
             } else {
                 //remove comma separate thousand
                 String quantity = NumberTextWatcherForThousand.trimCommaOfString(edQuantity.getText().toString());
-                if (action.equals("sell") && (Integer.parseInt(quantity) > Integer.parseInt(itemsModel.getQuantity().split(" ")[0].trim()))) {
+                System.out.println(Integer.parseInt(realQuantity));
+                if (action.equals("sell") && (Integer.parseInt(quantity) > Integer.parseInt(realQuantity))) {
                     final AlertDialog.Builder insufficientAlert = new AlertDialog.Builder(AddItem.this);
-                    insufficientAlert.setMessage("Số lượng hàng không đủ!!" + "\n" + "Số lượng hàng còn lại: " + NumberTextWatcherForThousand.getDecimalFormattedString(itemsModel.getQuantity()));
+                    insufficientAlert.setMessage("Số lượng hàng không đủ!!" + "\n" + "Số lượng hàng còn lại: " + NumberTextWatcherForThousand.getDecimalFormattedString(realQuantity));
                     insufficientAlert.setNegativeButton("OK", (dialog, which) -> {
                         //reset quantity
                         edQuantity.setText("");
@@ -81,8 +83,8 @@ public class AddItem extends AppCompatActivity implements AdapterView.OnItemSele
                 }
                 else {
                     Main.productsList.add(new Item(tvNameItem.getText().toString(), NumberTextWatcherForThousand.trimCommaOfString(edQuantity.getText().toString()),NumberTextWatcherForThousand.trimCommaOfString(edPrice.getText().toString()), tvUnit.getText().toString()));
-                    CreateInvoice.customAdapter.notifyDataSetChanged();
                     ListProduct.activityProduct.finish();
+                    CreateInvoice.customAdapter.notifyDataSetChanged();
                     finish();
                 }
             }

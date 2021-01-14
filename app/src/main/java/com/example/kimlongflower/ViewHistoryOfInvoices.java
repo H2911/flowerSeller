@@ -151,7 +151,7 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String name = "";
+                    String name;
                     //get date from database
                     for (DataSnapshot dataSnapshot:snapshot.getChildren()){
                         //check query
@@ -160,14 +160,13 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
                             for(DataSnapshot timeData:dataSnapshot.getChildren()){
                                 //get seller or buyer name
                                 for(DataSnapshot nameData:timeData.getChildren()){
-                                    name = nameData.getKey();
+                                    name = nameData.getKey().split(" ")[0];
                                     List<Item> itemList = new ArrayList<>();
                                     //get item list in invoice
                                     for(DataSnapshot item: nameData.getChildren()){
                                         String quantity = item.getValue().toString().split(" ")[0];
                                         String unit = item.getValue().toString().split(" ")[1];
-                                        String price = item.getValue().toString().split(" ")[2];
-                                        itemList.add(new Item(item.getKey(),quantity,price,unit));
+                                        itemList.add(new Item(item.getKey().split(",")[0].trim(),quantity,item.getKey().split(",")[1].trim(),unit));
                                     }
                                     invoiceList.add(new Invoice(name,action,itemList,dataSnapshot.getKey(),timeData.getKey()));
                                 }

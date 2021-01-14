@@ -80,9 +80,10 @@ public class CreateInvoice extends AppCompatActivity {
     List<Item> itemList;
     String action;
     TextView tvName;
-    FirebaseDatabase firebaseDatabase;
 
+    FirebaseDatabase firebaseDatabase;
     FirebaseUser user;
+    DatabaseReference referenceOfCompanyInfo;
     DatabaseReference reference;
     DatabaseReference referenceUpdateData;
     DatabaseReference referenceOfFunds;
@@ -275,8 +276,37 @@ public class CreateInvoice extends AppCompatActivity {
     }
 
     private void printInvoice(View view) {
-        //Connect BT
-        startActivityForResult( new Intent( this, BluetoothDeviceList.class ), BLUETOOTH_REQUEST_CODE );
+        //Check CompanyInfo
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = user.getUid();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        referenceOfCompanyInfo = firebaseDatabase.getReference("Users").child(userId);
+
+        referenceOfCompanyInfo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild("companyInfo")){
+                    //Connect BT
+                    startActivityForResult( new Intent( CreateInvoice.this, BluetoothDeviceList.class ), BLUETOOTH_REQUEST_CODE );
+                }else {
+                    final AlertDialog.Builder alertFillInCompanyInfo = new AlertDialog.Builder(CreateInvoice.this);
+                    alertFillInCompanyInfo.setMessage("Nhập thông tin công ty để thực hiện chức năng in Bluetooth!");
+                    alertFillInCompanyInfo.setPositiveButton("Ok",((dialog, which) -> {
+                        startActivity(new Intent(CreateInvoice.this,SettingCompany.class));
+                    }));
+                    alertFillInCompanyInfo.setNeutralButton("Hủy",((dialog, which) -> {
+                    }));
+                    alertFillInCompanyInfo.create().show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     public void onBackPressed(){
@@ -359,7 +389,7 @@ public class CreateInvoice extends AppCompatActivity {
             tvNameItem.setText(itemList.get(position).getName());
             tvQuantity.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getQuantity())+" "+itemList.get(position).getUnit());
             tvPrice.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getPrice()));
-            tvSumOfItem.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getSumOfItem()));
+            tvSumOfItem.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemList.get(position).getSumOfItem())+ " đ");
 
             ibDelete.setOnClickListener(v -> {
                 final AlertDialog.Builder backMainPageAlert = new AlertDialog.Builder(CreateInvoice.this);
@@ -435,7 +465,7 @@ public class CreateInvoice extends AppCompatActivity {
         HashMap<String,Object> updateDataInvoice = new HashMap<>();
         List<Item> itemList = invoice.getListItem();
         for (Item item : itemList) {
-            invoiceInfo.put(item.getName(), item.getQuantity() + " " + item.getUnit()+" "+item.getPrice());
+            invoiceInfo.put(item.getName()+", "+item.getPrice(), item.getQuantity() + " " + item.getUnit());
 
             //Get data from storage
             referenceUpdateData.child(item.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -510,6 +540,8 @@ public class CreateInvoice extends AppCompatActivity {
                         Invoice invoice = currentInvoice;
                         View v = View.inflate(CreateInvoice.this, R.layout.pre_print_invoice, null);
                         TableLayout tl;
+
+                        //Custom invoice info
                         TextView tvTypeOfInvoice;
                         TextView tvAction;
                         TextView tvName;
@@ -524,6 +556,7 @@ public class CreateInvoice extends AppCompatActivity {
                         tvDateTimePreInvoice = v.findViewById(R.id.tvDateTimePreInvoice);
 
                         tvName.setText(invoice.getName());
+                        action = (String) getIntent().getSerializableExtra("action");
                         if (action.equals("buy")) {
                             tvTypeOfInvoice.setText("HÓA ĐƠN MUA HÀNG");
                             tvAction.setText("Người bán:");
@@ -545,23 +578,71 @@ public class CreateInvoice extends AppCompatActivity {
 
                         tvDateTimePreInvoice.setText(invoice.getDate() + " " + invoice.getTime());
 
+                        TextView tvTypeOfCompany;
+                        TextView tvCompanyName;
+                        TextView tvAddress;
+                        TextView tvProvince;
+                        TextView tvPhone1;
+                        TextView tvPhone2;
 
-                        //Print XML
-                        final Bitmap bitmap = convertViewToBitmap(v);
-                        threadPool = ThreadPool.getInstance();
-                        threadPool.addTask(() -> {
-                            if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id] == null ||
-                                    !DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getConnState()) {
-                                mHandler.obtainMessage(CONN_PRINTER).sendToTarget();
-                                return;
+                        tvTypeOfCompany = v.findViewById(R.id.tvTypeOfCompany);
+                        tvCompanyName = v.findViewById(R.id.tvCompanyName);
+                        tvAddress = v.findViewById(R.id.tvAddress);
+                        tvProvince = v.findViewById(R.id.tvProvince);
+                        tvPhone1 = v.findViewById(R.id.tvPhone1);
+                        tvPhone2 = v.findViewById(R.id.tvPhone2);
+
+                        //Custom company info
+                        user = FirebaseAuth.getInstance().getCurrentUser();
+                        String userId = user.getUid();
+
+                        firebaseDatabase = FirebaseDatabase.getInstance();
+                        referenceOfCompanyInfo  = firebaseDatabase.getReference("Users").child(userId).child("companyInfo");
+                        referenceOfCompanyInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Company company = snapshot.getValue(Company.class);
+
+                                tvTypeOfCompany.setText(company.getTypeOfCompany());
+                                tvCompanyName.setText(company.getCompanyName());
+                                tvAddress.setText(company.getAddress());
+                                tvProvince.setText(company.getCity()+", "+company.getProvince());
+
+                                if(!company.getPhone1().matches("")){
+                                    tvPhone1.setText(company.getPhone1());
+                                }else{
+                                    tvPhone1.setText("");
+                                }
+
+                                if(!company.getPhone2().matches("")) {
+                                    tvPhone2.setText(company.getPhone2());
+                                }else{
+                                    tvPhone2.setText("");
+                                }
+
+                                //Print XML
+                                final Bitmap bitmap = convertViewToBitmap(v);
+                                threadPool = ThreadPool.getInstance();
+                                threadPool.addTask(() -> {
+                                    if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id] == null ||
+                                            !DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getConnState()) {
+                                        mHandler.obtainMessage(CONN_PRINTER).sendToTarget();
+                                        return;
+                                    }
+                                    if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getCurrentPrinterCommand() == PrinterCommand.ESC) {
+                                        EscCommand esc = new EscCommand();
+                                        esc.addInitializePrinter();
+                                        esc.addRastBitImage(bitmap, 366, 0);
+                                        esc.addPrintAndLineFeed();
+                                        DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].sendDataImmediately(esc.getCommand());
+                                        saveInvoice();
+                                    }
+                                });
                             }
-                            if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].getCurrentPrinterCommand() == PrinterCommand.ESC) {
-                                EscCommand esc = new EscCommand();
-                                esc.addInitializePrinter();
-                                esc.addRastBitImage(bitmap, 366, 0);
-                                esc.addPrintAndLineFeed();
-                                DeviceConnFactoryManager.getDeviceConnFactoryManagers()[id].sendDataImmediately(esc.getCommand());
-                                saveInvoice();
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
                             }
                         });
                         break;

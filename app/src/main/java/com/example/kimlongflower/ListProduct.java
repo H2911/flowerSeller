@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -121,11 +122,12 @@ public class ListProduct extends AppCompatActivity {
         private List<ItemsModel> itemsModelList;
         private List<ItemsModel> itemsModelListFiltered;
         private Context context;
+        private String realQuantity;
 
-        public CustomAdapter(List<ItemsModel> itemsModelList,Context context){
-            this.itemsModelList = itemsModelList;
+        public CustomAdapter(List<ItemsModel> listItemsModel,Context context){
+            this.itemsModelList = listItemsModel;
             this.context = context;
-            this.itemsModelListFiltered = itemsModelList;
+            this.itemsModelListFiltered = listItemsModel;
         }
 
         @Override
@@ -135,7 +137,7 @@ public class ListProduct extends AppCompatActivity {
 
         @Override
         public Object getItem(int position) {
-            return null;
+            return itemsModelList.get(position);
         }
 
         @Override
@@ -150,15 +152,39 @@ public class ListProduct extends AppCompatActivity {
             TextView tvName = view.findViewById(R.id.tvItem);
             TextView tvQuantity = view.findViewById(R.id.tvQuantity);
 
+            //set quantity in application
+            realQuantity = itemsModelListFiltered.get(position).getQuantity();
+            for (Item item: Main.productsList) {
+                if(item.getName().equals(itemsModelListFiltered.get(position).getName())){
+                    realQuantity = String.valueOf(Integer.parseInt(realQuantity) - Integer.parseInt(item.getQuantity()));
+                }
+            }
+
             imageView.setImageResource(itemsModelListFiltered.get(position).getImage());
             tvName.setText(itemsModelListFiltered.get(position).getName());
-            tvQuantity.setText(NumberTextWatcherForThousand.getDecimalFormattedString(itemsModelListFiltered.get(position).getQuantity()) +" "+ itemsModelListFiltered.get(position).getUnit());
+            tvQuantity.setText(NumberTextWatcherForThousand.getDecimalFormattedString(realQuantity) +" "+ itemsModelListFiltered.get(position).getUnit());
 
             view.setOnClickListener(v -> {
                 if(!action.equals("view store")) {
-                    Intent intent = new Intent(ListProduct.this, AddItem.class).putExtra("item", itemsModelListFiltered.get(position));
-                    intent.putExtra("action", action);
-                    startActivity(intent);
+                    realQuantity = itemsModelListFiltered.get(position).getQuantity();
+                    for (Item item: Main.productsList) {
+                        if(item.getName().equals(itemsModelListFiltered.get(position).getName())){
+                            realQuantity = String.valueOf(Integer.parseInt(realQuantity) - Integer.parseInt(item.getQuantity()));
+                        }
+                    }
+                    if (action.equals("sell") && realQuantity.equals("0")) {
+                        final AlertDialog.Builder alertEmptyItem = new AlertDialog.Builder(ListProduct.this);
+                        alertEmptyItem.setMessage("Hết sản phẩm!");
+                        alertEmptyItem.setPositiveButton("Ok",((dialog, which) -> {
+                        }));
+                        alertEmptyItem.create().show();
+                    } else {
+
+                        Intent intent = new Intent(ListProduct.this, AddItem.class).putExtra("item", itemsModelListFiltered.get(position));
+                        intent.putExtra("action", action);
+                        intent.putExtra("realQuantity",realQuantity);
+                        startActivity(intent);
+                    }
                 }
             });
 
