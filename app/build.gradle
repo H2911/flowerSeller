@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         multiDexEnabled true
-        applicationId "com.example.kimlongflower"
+        applicationId "com.imperfection.kimlongflower"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
-    implementation 'com.google.firebase:firebase-auth:20.0.1'
+    implementation 'com.google.firebase:firebase-auth:20.0.2'
     implementation 'com.google.firebase:firebase-firestore:22.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.mazenrashed:Printooth:1.2.2'

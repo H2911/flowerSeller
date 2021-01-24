@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.kimlongflower">
+    package="com.imperfection.kimlongflower">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -15,19 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:theme">
-        <activity android:name=".SettingCompany"></activity>
-        <activity android:name=".ChooseTypeOfHistory" />
-        <activity android:name=".ViewHistoryOfInvoices" />
-        <activity android:name=".CreateInvoice" />
-        <activity android:name=".AddItem" />
-        <activity android:name=".ListProduct" />
-        <activity android:name=".ViewTransaction" />
-        <activity android:name=".BluetoothDeviceList" />
+        <activity android:name="com.imperfection.kimlongflower.SettingCompany"></activity>
+        <activity android:name="com.imperfection.kimlongflower.ChooseTypeOfHistory" />
+        <activity android:name="com.imperfection.kimlongflower.ViewHistoryOfInvoices" />
+        <activity android:name="com.imperfection.kimlongflower.CreateInvoice" />
+        <activity android:name="com.imperfection.kimlongflower.AddItem" />
+        <activity android:name="com.imperfection.kimlongflower.ListProduct" />
+        <activity android:name="com.imperfection.kimlongflower.ViewTransaction" />
+        <activity android:name="com.imperfection.kimlongflower.BluetoothDeviceList" />
         <activity
-            android:name=".Main"
+            android:name="com.imperfection.kimlongflower.Main"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Register" />
-        <activity android:name=".Login">
+        <activity android:name="com.imperfection.kimlongflower.Register" />
+        <activity android:name="com.imperfection.kimlongflower.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

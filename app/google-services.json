@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:620064210019:android:face38ab427909e8728c56",
+        "mobilesdk_app_id": "1:620064210019:android:410c3226fc6df28e728c56",
         "android_client_info": {
-          "package_name": "com.example.kimlongflower"
+          "package_name": "com.imperfection.kimlongflower"
         }
       },
       "oauth_client": [
