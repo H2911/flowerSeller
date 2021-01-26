@@ -72,6 +72,16 @@
                 android:id="@+id/tvSumOfInvoiceInPopUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btnPrintAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="In hóa đơn"
+                android:textSize="16sp"
+                android:layout_marginTop="40dp"
+                android:layout_below="@id/tvSumOfInvoiceInPopUp"/>
         </RelativeLayout>
     </ScrollView>
 

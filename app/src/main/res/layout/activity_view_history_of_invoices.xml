@@ -107,7 +107,7 @@
         android:layout_marginEnd="20dp"
         android:layout_toEndOf="@+id/tvFrom"
         android:layout_alignBaseline="@+id/tvFrom"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="36dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp" />
