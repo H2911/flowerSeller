@@ -184,7 +184,6 @@ public class CreateInvoice extends AppCompatActivity {
         }
     }
 
-
     private void requestPermission()
     {
         if ( per.size() > 0 )
@@ -195,7 +194,7 @@ public class CreateInvoice extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private TableRow addLineRow(Context context) {
+    public static TableRow addLineRow(Context context) {
         TableRow tb = new TableRow(context);
         tb.setLayoutParams( new TableLayout.LayoutParams( TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT  ) );
         TextView tv1 = new TextView( context );
@@ -218,7 +217,7 @@ public class CreateInvoice extends AppCompatActivity {
     }
 
 
-    private TableRow addNameItem( Context context, String number, String name)
+    public static TableRow addNameItem( Context context, String number, String name)
     {
         TableRow tb = new TableRow( context );
         tb.setLayoutParams( new TableLayout.LayoutParams( TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT  ) );
@@ -231,7 +230,7 @@ public class CreateInvoice extends AppCompatActivity {
         return(tb);
     }
 
-    private TableRow addItemDetails( Context context, String quantity, String price,String unit, String sumOfItem  )
+    public static TableRow addItemDetails( Context context, String quantity, String price,String unit, String sumOfItem  )
     {
         TableRow tb = new TableRow( context );
         tb.setLayoutParams( new TableLayout.LayoutParams( TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT ) );
