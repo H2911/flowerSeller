@@ -617,7 +617,7 @@ public class CreateInvoice extends AppCompatActivity {
                                 }
 
                                 if(!company.getPhone2().matches("")) {
-                                    tvPhone2.setText("SĐT"+company.getPhone2());
+                                    tvPhone2.setText("SĐT: "+company.getPhone2());
                                 }else{
                                     tvPhone2.setText("");
                                 }
