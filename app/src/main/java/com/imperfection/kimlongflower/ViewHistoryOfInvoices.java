@@ -5,11 +5,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -62,6 +64,8 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
     private static final int PRINTER_COMMAND_ERROR = 0x008;
     private byte[] esc = { 0x10, 0x04, 0x02 };
 
+    public static Activity activityViewHistoryInvoice;
+
     FirebaseAuth firebaseAuth;
     FirebaseUser currentUser;
     FirebaseDatabase firebaseDatabase;
@@ -83,6 +87,8 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_history_of_invoices);
+
+        activityViewHistoryInvoice=this;
 
         dialogInvoice = new Dialog(this);
 
@@ -184,7 +190,7 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
                             for(DataSnapshot timeData:dataSnapshot.getChildren()){
                                 //get seller or buyer name
                                 for(DataSnapshot nameData:timeData.getChildren()){
-                                    name = nameData.getKey().split(" ")[0];
+                                    name = nameData.getKey();
                                     List<Item> itemList = new ArrayList<>();
                                     //get item list in invoice
                                     for(DataSnapshot item: nameData.getChildren()){
@@ -296,7 +302,6 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
                 });
                 dialogInvoice.show();
             });
-
             return view;
         }
     }
@@ -420,6 +425,14 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        IntentFilter filter = new IntentFilter( DeviceConnFactoryManager.ACTION_CONN_STATE );
+        registerReceiver( receiver, filter );
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver()
@@ -554,7 +567,6 @@ public class ViewHistoryOfInvoices extends AppCompatActivity {
                         break;
                 }
             }
-
         }
     };
     private Handler mHandler = new Handler()

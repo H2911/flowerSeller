@@ -1,5 +1,6 @@
 package com.imperfection.kimlongflower;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -322,7 +323,12 @@ public class DeviceConnFactoryManager {
         Intent intent = new Intent(ACTION_CONN_STATE);
         intent.putExtra(STATE, state);
         intent.putExtra(DEVICE_ID, id);
-        CreateInvoice.activityBuy.sendBroadcast(intent);
+
+        if(CreateInvoice.activityBuy == null){
+            ViewHistoryOfInvoices.activityViewHistoryInvoice.sendBroadcast(intent);
+        }else {
+            CreateInvoice.activityBuy.sendBroadcast(intent);
+        }
     }
 
     /**

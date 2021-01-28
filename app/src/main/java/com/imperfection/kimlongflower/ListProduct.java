@@ -53,7 +53,7 @@ public class ListProduct extends AppCompatActivity {
             "Hoa hồng sen mới","Hoa hồng sen","Hoa hồng sen đại","Hoa hồng cam dài","Hoa hồng ánh trăng","Hoa hồng đỏ sa","Hoa hồng đỏ Hà Lan","Hoa hồng đỏ ớt","Hoa hồng phấn","Hoa hồng hoàng hậu",
             "Hoa hồng mỡ gà","Hoa hồng kem","Hoa hồng trắng xoáy","Hoa hồng xanh ngọc","Hoa hồng hỷ","Hoa hồng hỷ xanh","Hoa hồng hỷ hồng","Hoa hồng tím","Hoa hồng tím cồ","Hoa hồng nhỏ","Hoa hồng vàng chùa",
             "Hoa hồng sen phật","Hoa hồng mật ong","Hoa hồng Hara","Hoa hồng son môi","Hoa hồng trà","Ly nhọn 1 tai","Ly nhọn 2 tai","Ly nhọn 3 tai","Ly nhọn 4 tai","Ly nhọn 5 tai","Ly ù đỏ 1 tai","Ly ù đỏ 2 tai",
-            "Ly ù đỏ 3 tai","Ly ù đỏ 4 tai","Ly ù đỏ 5 tai","Ly ù vàng 1 tai","Ly ù vàng 2 tai","Ly ù vàng 3 tai","Ly ù vàng 4 tai","Ly ù vàng 5 tai","Dừa nhỏ","Dừa lớn","Lá lan","Lá mimosa",
+            "Ly ù đỏ 3 tai","Ly ù đỏ 4 tai","Ly ù đỏ 5 tai","Ly ù vàng 1 tai","Ly ù vàng 2 tai","Ly ù vàng 3 tai","Ly ù vàng 4 tai","Ly ù vàng 5 tai","Ly cam","Dừa nhỏ","Dừa lớn","Lá lan","Lá mimosa",
             "Lá nguyệt quế","Lá đốm","Lá đô la","Thạch thảo tím (kg)","Thạch thảo tím (bó)","Thạch thảo trắng (kg)","Thạch thảo trắng (bó)","Vàng anh (kg)","Vàng anh (bó)","Sa lem (kg)","Sa lem (bó)","Sao tím (kg)","Sao tím (bó)","Bibi","Bibi ngoại","Mimi"};
     public static Activity activityProduct;
     List<ItemsModel> itemsModelList = new ArrayList<>();
@@ -155,8 +155,10 @@ public class ListProduct extends AppCompatActivity {
             //set quantity in application
             realQuantity = itemsModelListFiltered.get(position).getQuantity();
             for (Item item: Main.productsList) {
-                if(item.getName().equals(itemsModelListFiltered.get(position).getName())){
-                    realQuantity = String.valueOf(Integer.parseInt(realQuantity) - Integer.parseInt(item.getQuantity()));
+                if(action.matches("sell")) {
+                    if (item.getName().equals(itemsModelListFiltered.get(position).getName())) {
+                        realQuantity = String.valueOf(Integer.parseInt(realQuantity) - Integer.parseInt(item.getQuantity()));
+                    }
                 }
             }
 

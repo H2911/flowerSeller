@@ -140,27 +140,29 @@ public class CreateInvoice extends AppCompatActivity {
             etSeller = findViewById(R.id.etSeller);
             if (etSeller.getText().toString().trim().isEmpty()) {
                 final AlertDialog.Builder emptyNameAlert = new AlertDialog.Builder(CreateInvoice.this);
-                emptyNameAlert.setMessage("Tên " + tvName.getText().toString().split(":")[0].toLowerCase() + " không được bỏ trống");
-                emptyNameAlert.setPositiveButton("OK", (dialog, which) -> {
+                emptyNameAlert.setMessage("Tên " + tvName.getText().toString().split(":")[0].toLowerCase() + " đang bỏ trống");
+                emptyNameAlert.setPositiveButton("Tiếp tục", (dialog, which) -> {
+                    if (!Main.productsList.isEmpty()) {
+                        final AlertDialog.Builder alertPrint = new AlertDialog.Builder(CreateInvoice.this);
+                        alertPrint.setMessage("Lưu hóa đơn!");
+                        alertPrint.setPositiveButton("In và lưu hóa đơn", (dialog1, which1) ->{
+                            currentInvoice = getCurrentInvoice();
+                            printInvoice(v);
+                        });
+                        alertPrint.setNegativeButton("Lưu hóa đơn",(dialog1, which1) -> {
+                            currentInvoice = getCurrentInvoice();
+                            saveInvoice();
+                        });
+                        alertPrint.setNeutralButton("Hủy", (dialog1, which1) -> {
+                        });
+                        alertPrint.create().show();
+                    }
+                    else {
+                        Toast.makeText(CreateInvoice.this,"Danh sách mặt hàng còn trống!",Toast.LENGTH_SHORT).show();
+                    }
                 });
+                emptyNameAlert.setNegativeButton("Hủy",((dialog, which) -> {}));
                 emptyNameAlert.create().show();
-            } else if (!Main.productsList.isEmpty()) {
-                final AlertDialog.Builder alertPrint = new AlertDialog.Builder(CreateInvoice.this);
-                alertPrint.setMessage("Lưu hóa đơn!");
-                alertPrint.setPositiveButton("In và lưu hóa đơn", (dialog, which) ->{
-                        currentInvoice = getCurrentInvoice();
-                        printInvoice(v);
-                });
-                alertPrint.setNegativeButton("Lưu hóa đơn",(dialog, which) -> {
-                    currentInvoice = getCurrentInvoice();
-                    saveInvoice();
-                });
-                alertPrint.setNeutralButton("Hủy", (dialog, which) -> {
-                });
-                alertPrint.create().show();
-            }
-            else {
-                Toast.makeText(CreateInvoice.this,"Danh sách mặt hàng còn trống!",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -511,7 +513,11 @@ public class CreateInvoice extends AppCompatActivity {
 
     private Invoice getCurrentInvoice(){
         etSeller = findViewById(R.id.etSeller);
-        return new Invoice(etSeller.getText().toString(), action, Main.productsList);
+        if(etSeller.getText().toString().matches("")){
+            return new Invoice("khách lẻ", action, Main.productsList);
+        }else {
+            return new Invoice(etSeller.getText().toString(), action, Main.productsList);
+        }
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver()

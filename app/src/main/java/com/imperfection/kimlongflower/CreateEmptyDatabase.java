@@ -107,6 +107,7 @@ public class CreateEmptyDatabase {
         userInfo.put("Ly ù vàng 3 tai","0 bó");
         userInfo.put("Ly ù vàng 4 tai","0 bó");
         userInfo.put("Ly ù vàng 5 tai","0 bó");
+        userInfo.put("Ly cam","0 bó");
         userInfo.put("Dừa nhỏ","0 bó");
         userInfo.put("Dừa lớn","0 bó");
         userInfo.put("Lá lan","0 bó");
