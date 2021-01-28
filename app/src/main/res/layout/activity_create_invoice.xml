@@ -55,7 +55,6 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:inputType="textPersonName"
-        android:text="khách lẻ"
         android:textSize="17sp" />
 
     <TextView
