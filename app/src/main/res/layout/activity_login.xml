@@ -33,15 +33,15 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/password"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"/>
+        android:layout_alignBaseline="@+id/loginButton"/>
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đăng nhập"
         android:layout_toLeftOf="@+id/registerButton"
-        android:layout_below="@+id/password"
-        android:layout_marginTop="40dp"/>
+        android:layout_below="@+id/tvStringRemberUser"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/password"
@@ -56,14 +56,33 @@
         android:inputType="textPassword"
         android:keepScreenOn="false" />
 
+    <CheckBox
+        android:id="@+id/cbRememberUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"/>
+
     <TextView
+        android:id="@+id/tvStringRemberUser"
+        android:text="Nhớ Tài Khoản"
+        android:textStyle="italic"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cbRememberUser"
+        android:layout_alignBaseline="@+id/cbRememberUser"/>
+
+    <TextView
+        android:id="@+id/tvForgotPassword"
         android:text="Quên mật khẩu?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvForgotPassword"
         android:layout_below="@+id/registerButton"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:clickable="true"/>
+        android:linksClickable="true" />
 
 </RelativeLayout>
