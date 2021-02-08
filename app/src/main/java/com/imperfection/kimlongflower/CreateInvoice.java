@@ -58,9 +58,7 @@ public class CreateInvoice extends AppCompatActivity {
     private byte[] esc = { 0x10, 0x04, 0x02 };
 
     private static final int CONN_PRINTER = 0x12;
-    private String[] permissions = {
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.BLUETOOTH
+    private String[] permissions = {Manifest.permission.BLUETOOTH
     };
     private ThreadPool threadPool;
 
@@ -163,6 +161,26 @@ public class CreateInvoice extends AppCompatActivity {
                 });
                 emptyNameAlert.setNegativeButton("Hủy",((dialog, which) -> {}));
                 emptyNameAlert.create().show();
+            }
+            else{
+                if (!Main.productsList.isEmpty()) {
+                    final AlertDialog.Builder alertPrint = new AlertDialog.Builder(CreateInvoice.this);
+                    alertPrint.setMessage("Lưu hóa đơn!");
+                    alertPrint.setPositiveButton("In và lưu hóa đơn", (dialog1, which1) ->{
+                        currentInvoice = getCurrentInvoice();
+                        printInvoice(v);
+                    });
+                    alertPrint.setNegativeButton("Lưu hóa đơn",(dialog1, which1) -> {
+                        currentInvoice = getCurrentInvoice();
+                        saveInvoice();
+                    });
+                    alertPrint.setNeutralButton("Hủy", (dialog1, which1) -> {
+                    });
+                    alertPrint.create().show();
+                }
+                else {
+                    Toast.makeText(CreateInvoice.this,"Danh sách mặt hàng còn trống!",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

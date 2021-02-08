@@ -121,8 +121,12 @@ public class CreateEmptyDatabase {
         userInfo.put("Thạch thảo trắng (bó)","0 bó");
         userInfo.put("Vàng anh (kg)","0 kg");
         userInfo.put("Vàng anh (bó)","0 bó");
-        userInfo.put("Sa lem (kg)","0 kg");
-        userInfo.put("Sa lem (bó)","0 bó");
+        userInfo.put("Sa lem trắng (kg)","0 kg");
+        userInfo.put("Sa lem trắng (bó)","0 bó");
+        userInfo.put("Sa lem vàng (kg)","0 kg");
+        userInfo.put("Sa lem vàng (bó)","0 bó");
+        userInfo.put("Sa lem tím (kg)","0 kg");
+        userInfo.put("Sa lem tím (bó)","0 bó");
         userInfo.put("Sao tím (kg)","0 kg");
         userInfo.put("Sao tím (bó)","0 bó");
         userInfo.put("Bibi","0 bó");
